@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisory Skills – Banking Leadership Simulation</title>
+  <meta name="description"
+    content="Professional banking leadership assessment simulation platform for supervisory skills development.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --nd: #060e1e;
+      --nk: #0c1e3e;
+      --nm: #152d5a;
+      --nl: #1e4080;
+      --nc: #0f2344;
+      --gd: #c9a84c;
+      --gl: #e8c96d;
+      --gm: #8a6f2e;
+      --wh: #fff;
+      --tp: #e8edf5;
+      --ts: #8899bb;
+      --tm: #556688;
+      --ok: #22c55e;
+      --wn: #f59e0b;
+      --er: #ef4444;
+      --inf: #3b82f6;
+      --bd: rgba(255, 255, 255, .08);
+      --sc: 0 4px 24px rgba(0, 0, 0, .4);
+      --sg: 0 0 40px rgba(201, 168, 76, .15)
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--nd);
+      color: var(--tp);
+      min-height: 100vh;
+      overflow: hidden
+    }
+
+    #access-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at 50% 0%, #1a3260 0%, #060e1e 60%);
+      z-index: 1000;
+      transition: opacity .6s ease, transform .6s ease
+    }
+
+    #access-screen.fade-out {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none
+    }
+
+    .abg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(201, 168, 76, .05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(30, 64, 128, .3) 0%, transparent 50%);
+      pointer-events: none
+    }
+
+    .alo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px
+    }
+
+    .ali {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--gd), var(--gl));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 32px rgba(201, 168, 76, .4)
+    }
+
+    .ac {
+      background: rgba(15, 35, 68, .95);
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 20px;
+      padding: 48px 56px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--sc), var(--sg);
+      text-align: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .ac::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gd), transparent);
+      border-radius: 20px 20px 0 0
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201, 168, 76, .1);
+      border: 1px solid rgba(201, 168, 76, .3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gd);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px
+    }
+
+    .at {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff, #c8d8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .as {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gd);
+      margin-bottom: 8px
+    }
+
+    .ad {
+      font-size: 14px;
+      color: var(--ts);
+      margin-bottom: 36px;
+      line-height: 1.6
+    }
+
+    .il {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ts);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-align: left
+    }
+
+    .ai {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+      color: var(--wh);
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 3px;
+      text-align: center;
+      transition: .3s;
+      outline: none
+    }
+
+    .ai:focus {
+      border-color: var(--gd);
+      background: rgba(201, 168, 76, .05);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .15)
+    }
+
+    .ai::placeholder {
+      letter-spacing: 1px;
+      color: var(--tm)
+    }
+
+    .ab {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--gd), #d4a832);
+      border: none;
+      border-radius: 12px;
+      color: #1a0d00;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: .3s;
+      margin-top: 8px
+    }
+
+    .ab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, .4)
+    }
+
+    .aerr {
+      display: none;
+      background: rgba(239, 68, 68, .1);
+      border: 1px solid rgba(239, 68, 68, .3);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #fca5a5;
+      margin-top: 12px;
+      text-align: center
+    }
+
+    .aerr.show {
+      display: block;
+      animation: shake .4s ease
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-6px)
+      }
+
+      75% {
+        transform: translateX(6px)
+      }
+    }
+
+    .aft {
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--tm)
+    }
+
+    #sim {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      flex-direction: column
+    }
+
+    #sim.active {
+      display: flex
+    }
+
+    .sh {
+      height: 60px;
+      background: var(--nk);
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0
+    }
+
+    .shl {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .shi {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--gd), var(--gl));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px
+    }
+
+    .sht {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--wh)
+    }
+
+    .sht span {
+      font-weight: 400;
+      color: var(--ts);
+      font-size: 13px
+    }
+
+    .shst {
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .sb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px
+    }
+
+    .sb.active {
+      background: rgba(34, 197, 94, .12);
+      color: var(--ok);
+      border: 1px solid rgba(34, 197, 94, .25)
+    }
+
+    .sb.adv {
+      background: rgba(239, 68, 68, .12);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, .25)
+    }
+
+    .sd {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pdot 2s infinite
+    }
+
+    @keyframes pdot {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .4
+      }
+    }
+
+    .mc {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: .5px;
+      text-transform: uppercase
+    }
+
+    .mc.p1 {
+      background: rgba(59, 130, 246, .2);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, .3)
+    }
+
+    .mc.p2 {
+      background: rgba(239, 68, 68, .2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, .3)
+    }
+
+    .sbody {
+      display: grid;
+      grid-template-columns: 260px 1fr 280px;
+      flex: 1;
+      overflow: hidden
+    }
+
+    .lsb {
+      background: var(--nk);
+      border-right: 1px solid var(--bd);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 16px;
+      gap: 16px
+    }
+
+    .lsb::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .lsb::-webkit-scrollbar-thumb {
+      background: var(--nl);
+      border-radius: 4px
+    }
+
+    .ssl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--tm);
+      margin-bottom: 10px
+    }
+
+    .ec {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .3s;
+      border: 1px solid transparent;
+      margin-bottom: 4px
+    }
+
+    .ec:hover {
+      background: rgba(255, 255, 255, .05);
+      border-color: var(--bd)
+    }
+
+    .ec.active {
+      background: rgba(201, 168, 76, .08);
+      border-color: rgba(201, 168, 76, .25)
+    }
+
+    .ea {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+      position: relative
+    }
+
+    .ea.la {
+      background: linear-gradient(135deg, #7c3aed, #a855f7)
+    }
+
+    .ea.ah {
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8)
+    }
+
+    .ea.sh {
+      background: linear-gradient(135deg, #059669, #34d399)
+    }
+
+    .ea.kh {
+      background: linear-gradient(135deg, #dc2626, #f87171)
+    }
+
+    .esd {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--nk);
+      background: var(--tm)
+    }
+
+    .ea.alive .esd {
+      background: var(--ok)
+    }
+
+    .ei {
+      flex: 1;
+      min-width: 0
+    }
+
+    .en {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tp);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .er2 {
+      font-size: 11px;
+      color: var(--tm);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .mi2 {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .mn {
+      background: var(--tm)
+    }
+
+    .mp {
+      background: var(--ok)
+    }
+
+    .mc2 {
+      background: var(--wn)
+    }
+
+    .mf {
+      background: var(--er)
+    }
+
+    .ssec {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 14px
+    }
+
+    .pbw {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+      margin-top: 6px
+    }
+
+    .pbf {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gd), var(--gl));
+      border-radius: 4px;
+      transition: width .5s ease
+    }
+
+    .ic {
+      font-size: 11px;
+      color: var(--ts);
+      margin-top: 6px
+    }
+
+    .esb {
+      width: 100%;
+      padding: 11px;
+      background: rgba(239, 68, 68, .1);
+      border: 1px solid rgba(239, 68, 68, .25);
+      border-radius: 8px;
+      color: #fca5a5;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: .3s;
+      margin-top: auto
+    }
+
+    .esb:hover {
+      background: rgba(239, 68, 68, .2);
+      border-color: rgba(239, 68, 68, .4)
+    }
+
+    .mp2 {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--nd)
+    }
+
+    .epc {
+      padding: 16px 20px;
+      background: var(--nc);
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0
+    }
+
+    .pal {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .4)
+    }
+
+    .pi {
+      flex: 1
+    }
+
+    .pn {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--wh)
+    }
+
+    .pr {
+      font-size: 13px;
+      color: var(--gd);
+      font-weight: 500
+    }
+
+    .pm {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 500
+    }
+
+    .chip.exp {
+      background: rgba(59, 130, 246, .15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, .25)
+    }
+
+    .chip.sty {
+      background: rgba(201, 168, 76, .12);
+      color: var(--gd);
+      border: 1px solid rgba(201, 168, 76, .2)
+    }
+
+    .chip.mat {
+      background: rgba(34, 197, 94, .1);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, .2)
+    }
+
+    .pms {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px
+    }
+
+    .pml {
+      font-size: 11px;
+      color: var(--tm);
+      font-weight: 500
+    }
+
+    .pmv {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 12px
+    }
+
+    .ca {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px
+    }
+
+    .ca::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .ca::-webkit-scrollbar-thumb {
+      background: var(--nl);
+      border-radius: 4px
+    }
+
+    .msg {
+      display: flex;
+      gap: 12px;
+      max-width: 85%;
+      animation: min .3s ease
+    }
+
+    @keyframes min {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .msg.emp {
+      align-self: flex-start
+    }
+
+    .msg.sup {
+      align-self: flex-end;
+      flex-direction: row-reverse
+    }
+
+    .mav {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0
+    }
+
+    .mav.sv {
+      background: linear-gradient(135deg, #1e4080, #2a5298);
+      font-size: 16px
+    }
+
+    .mb {
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+      position: relative
+    }
+
+    .msg.emp .mb {
+      background: var(--nc);
+      border: 1px solid var(--bd);
+      border-top-left-radius: 4px;
+      color: var(--tp)
+    }
+
+    .msg.sup .mb {
+      background: linear-gradient(135deg, #1a3a6e, #1e4480);
+      border: 1px solid rgba(59, 130, 246, .2);
+      border-top-right-radius: 4px;
+      color: var(--tp)
+    }
+
+    .mm {
+      font-size: 11px;
+      color: var(--tm);
+      margin-top: 4px
+    }
+
+    .msg.sup .mm {
+      text-align: right
+    }
+
+    .ti {
+      display: none;
+      align-self: flex-start;
+      padding: 12px 16px;
+      background: var(--nc);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      border-top-left-radius: 4px
+    }
+
+    .td {
+      display: flex;
+      gap: 4px;
+      align-items: center
+    }
+
+    .tdt {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--tm);
+      animation: tb 1.2s infinite
+    }
+
+    .tdt:nth-child(2) {
+      animation-delay: .2s
+    }
+
+    .tdt:nth-child(3) {
+      animation-delay: .4s
+    }
+
+    @keyframes tb {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0)
+      }
+
+      30% {
+        transform: translateY(-6px)
+      }
+    }
+
+    .ia {
+      padding: 16px 20px;
+      background: var(--nc);
+      border-top: 1px solid var(--bd);
+      flex-shrink: 0
+    }
+
+    .ih {
+      font-size: 11px;
+      color: var(--tm);
+      margin-bottom: 8px
+    }
+
+    .ir {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end
+    }
+
+    .si {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 12px;
+      color: var(--wh);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      min-height: 48px;
+      max-height: 120px;
+      outline: none;
+      transition: .3s;
+      line-height: 1.5
+    }
+
+    .si:focus {
+      border-color: rgba(59, 130, 246, .4);
+      background: rgba(59, 130, 246, .05)
+    }
+
+    .si::placeholder {
+      color: var(--tm)
+    }
+
+    .sndb {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #1e4480, #2563eb);
+      border: none;
+      border-radius: 12px;
+      color: var(--wh);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: .3s;
+      height: 48px;
+      white-space: nowrap
+    }
+
+    .sndb:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, .4)
+    }
+
+    .rsb {
+      background: var(--nk);
+      border-left: 1px solid var(--bd);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 16px;
+      gap: 14px
+    }
+
+    .rsb::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .rsb::-webkit-scrollbar-thumb {
+      background: var(--nl);
+      border-radius: 4px
+    }
+
+    .cl {
+      list-style: none
+    }
+
+    .cli {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      font-size: 11.5px;
+      color: var(--ts);
+      line-height: 1.4
+    }
+
+    .cli:last-child {
+      border-bottom: none
+    }
+
+    .cld {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gm);
+      flex-shrink: 0;
+      margin-top: 5px
+    }
+
+    .im {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .ibg {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden
+    }
+
+    .ibf {
+      height: 100%;
+      border-radius: 4px;
+      transition: width .5s ease, background .5s ease
+    }
+
+    .il2 {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .nt {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      color: var(--tp);
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      height: 100px;
+      outline: none;
+      transition: .3s;
+      line-height: 1.5
+    }
+
+    .nt:focus {
+      border-color: rgba(201, 168, 76, .3)
+    }
+
+    .nt::placeholder {
+      color: var(--tm)
+    }
+
+    .sm {
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--tm);
+      background: rgba(255, 255, 255, .03);
+      border-radius: 20px;
+      align-self: center;
+      font-style: italic
+    }
+
+    #res {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      overflow-y: auto;
+      background: var(--nd);
+      flex-direction: column
+    }
+
+    #res.active {
+      display: flex
+    }
+
+    #res::-webkit-scrollbar {
+      width: 6px
+    }
+
+    #res::-webkit-scrollbar-thumb {
+      background: var(--nl);
+      border-radius: 4px
+    }
+
+    .rh {
+      background: var(--nk);
+      border-bottom: 1px solid var(--bd);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0
+    }
+
+    .rt {
+      font-size: 22px;
+      font-weight: 800
+    }
+
+    .rb {
+      padding: 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      flex: 1
+    }
+
+    .rtop {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+      align-items: start
+    }
+
+    .osc {
+      background: var(--nc);
+      border: 1px solid rgba(201, 168, 76, .25);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: var(--sg);
+      position: relative;
+      overflow: hidden
+    }
+
+    .osc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gd), var(--gl), var(--gd));
+      border-radius: 20px 20px 0 0
+    }
+
+    .scir {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 40px rgba(201, 168, 76, .3);
+      position: relative
+    }
+
+    .scin {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--nc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .sn {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gd);
+      line-height: 1
+    }
+
+    .sd2 {
+      font-size: 14px;
+      color: var(--tm)
+    }
+
+    .ol {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ts);
+      margin-top: 8px
+    }
+
+    .pt {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 12px;
+      letter-spacing: .5px;
+      text-transform: uppercase
+    }
+
+    .rc {
+      background: var(--nc);
+      border: 1px solid var(--bd);
+      border-radius: 20px;
+      padding: 24px
+    }
+
+    .ctt {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--tp);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .csg {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px
+    }
+
+    .csc {
+      background: var(--nc);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 18px;
+      transition: .3s
+    }
+
+    .csc:hover {
+      border-color: rgba(201, 168, 76, .2);
+      transform: translateY(-2px)
+    }
+
+    .csh {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px
+    }
+
+    .csn {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tp);
+      line-height: 1.4
+    }
+
+    .csb {
+      font-size: 18px;
+      font-weight: 800;
+      flex-shrink: 0;
+      line-height: 1
+    }
+
+    .csbg {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 3px;
+      height: 5px;
+      overflow: hidden;
+      margin-bottom: 12px
+    }
+
+    .csf {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s ease
+    }
+
+    .cd {
+      font-size: 11.5px;
+      color: var(--ts);
+      line-height: 1.5
+    }
+
+    .cds {
+      margin-bottom: 8px
+    }
+
+    .cdl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--tm);
+      margin-bottom: 2px
+    }
+
+    .cst {
+      color: #86efac
+    }
+
+    .cga {
+      color: #fca5a5
+    }
+
+    .cim {
+      color: #93c5fd
+    }
+
+    .nsb {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--gd), #d4a832);
+      border: none;
+      border-radius: 12px;
+      color: #1a0d00;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: .3s
+    }
+
+    .nsb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, .4)
+    }
+
+    .fi {
+      animation: fin .5s ease
+    }
+
+    @keyframes fin {
+      from {
+        opacity: 0;
+        transform: translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @media(max-width:1100px) {
+      .sbody {
+        grid-template-columns: 220px 1fr 240px
+      }
+    }
+
+    @media(max-width:900px) {
+      .sbody {
+        grid-template-columns: 1fr
+      }
+
+      .lsb,
+      .rsb {
+        display: none
+      }
+    }
+
+    /* ============================================================
+       PRESENTATION UI POLISH — VISUAL ONLY
+       Does not alter simulation logic, scoring, scenarios, or state.
+       ============================================================ */
+    :root {
+      --nd: #07111f;
+      --nk: #0b1b30;
+      --nm: #122844;
+      --nl: #1b3a61;
+      --nc: #10233d;
+      --gd: #d6b45c;
+      --gl: #f1d783;
+      --tp: #edf3fb;
+      --ts: #9aabc4;
+      --tm: #647895;
+      --bd: rgba(255,255,255,.09);
+      --sc: 0 16px 45px rgba(0,0,0,.35);
+      --sg: 0 0 45px rgba(214,180,92,.10);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 15% -10%, rgba(43,91,150,.28), transparent 34%),
+        radial-gradient(circle at 90% 100%, rgba(214,180,92,.08), transparent 32%),
+        var(--nd);
+    }
+
+    #sim { background: transparent; }
+
+    .sh {
+      height: 68px;
+      padding: 0 24px;
+      background: rgba(11,27,48,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    }
+
+    .shi {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      box-shadow: 0 6px 20px rgba(214,180,92,.22);
+    }
+
+    .sht { font-size: 15px; letter-spacing: -.1px; }
+    .sht span { margin-left: 5px; }
+
+    .sb, .mc {
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .sbody {
+      grid-template-columns: 280px minmax(0,1fr) 315px;
+      gap: 0;
+    }
+
+    .lsb, .rsb {
+      background: rgba(11,27,48,.82);
+      backdrop-filter: blur(12px);
+      padding: 20px 16px;
+    }
+
+    .lsb {
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+
+    .rsb {
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+
+    .ssl {
+      font-size: 10px;
+      letter-spacing: 1.7px;
+      color: #7185a5;
+      margin-bottom: 12px;
+    }
+
+    .ec {
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      border: 1px solid transparent;
+    }
+
+    .ec:hover {
+      background: rgba(255,255,255,.045);
+      border-color: rgba(255,255,255,.08);
+      transform: translateX(2px);
+    }
+
+    .ec.active {
+      background: linear-gradient(90deg, rgba(214,180,92,.12), rgba(214,180,92,.04));
+      border-color: rgba(214,180,92,.28);
+      box-shadow: inset 3px 0 0 var(--gd);
+    }
+
+    .ea {
+      width: 42px;
+      height: 42px;
+      box-shadow: 0 5px 16px rgba(0,0,0,.25);
+    }
+
+    .ssec {
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.075);
+      border-radius: 14px;
+      padding: 15px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.12);
+    }
+
+    .mp2 {
+      background:
+        linear-gradient(180deg, rgba(7,17,31,.25), rgba(7,17,31,.72)),
+        var(--nd);
+    }
+
+    .epc {
+      padding: 18px 24px;
+      min-height: 84px;
+      background: rgba(16,35,61,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .pal {
+      width: 56px;
+      height: 56px;
+      font-size: 19px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.28);
+    }
+
+    .pn { font-size: 19px; letter-spacing: -.2px; }
+    .pr { font-size: 12.5px; margin-top: 2px; }
+
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+    }
+
+    .ca {
+      padding: 24px 28px 18px;
+      gap: 18px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(38,76,120,.10), transparent 40%);
+    }
+
+    .msg { max-width: 78%; gap: 10px; }
+    .mav { width: 38px; height: 38px; box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+    .mb {
+      padding: 13px 17px;
+      border-radius: 15px;
+      line-height: 1.65;
+      box-shadow: 0 5px 18px rgba(0,0,0,.12);
+    }
+
+    .msg.emp .mb {
+      background: linear-gradient(145deg, #122945, #10233d);
+      border-color: rgba(255,255,255,.075);
+      border-top-left-radius: 5px;
+    }
+
+    .msg.sup .mb {
+      background: linear-gradient(145deg, #214b82, #183b69);
+      border-color: rgba(108,166,255,.20);
+      border-top-right-radius: 5px;
+    }
+
+    .mm { font-size: 10px; margin-top: 6px; color: #7185a5; }
+
+    .ia {
+      padding: 16px 24px 20px;
+      background: rgba(16,35,61,.94);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .ih {
+      font-size: 10.5px;
+      margin-bottom: 9px;
+      color: #7185a5;
+    }
+
+    .si {
+      min-height: 50px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      background: rgba(5,15,28,.72);
+      border-color: rgba(255,255,255,.11);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.18);
+    }
+
+    .si:focus {
+      border-color: rgba(214,180,92,.55);
+      background: rgba(5,15,28,.9);
+      box-shadow: 0 0 0 3px rgba(214,180,92,.10);
+    }
+
+    .sndb {
+      height: 50px;
+      padding: 12px 22px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #d6b45c, #b88e32);
+      color: #161006;
+      box-shadow: 0 6px 18px rgba(214,180,92,.18);
+    }
+
+    .sndb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 9px 24px rgba(214,180,92,.28);
+    }
+
+    .rsb {
+      gap: 16px;
+    }
+
+    .cli {
+      padding: 8px 0;
+      font-size: 11.5px;
+    }
+
+    .ibg, .pbw, .csbg {
+      background: rgba(255,255,255,.07);
+    }
+
+    .ibg { height: 8px; border-radius: 999px; }
+    .ibf { border-radius: 999px; }
+
+    .nt {
+      height: 110px;
+      padding: 12px;
+      border-radius: 11px;
+      background: rgba(5,15,28,.45);
+    }
+
+    .esb {
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(239,68,68,.08);
+    }
+
+    .sm {
+      padding: 7px 13px;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.035);
+    }
+
+    /* Results screen */
+    #res {
+      background:
+        radial-gradient(circle at 15% 0%, rgba(43,91,150,.22), transparent 35%),
+        radial-gradient(circle at 90% 100%, rgba(214,180,92,.07), transparent 30%),
+        var(--nd);
+    }
+
+    .rh {
+      min-height: 76px;
+      padding: 18px 34px;
+      background: rgba(11,27,48,.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .rt { font-size: 23px; letter-spacing: -.35px; }
+
+    .rb {
+      width: min(1500px, 100%);
+      margin: 0 auto;
+      padding: 30px 34px 50px;
+    }
+
+    .osc, .rc, .csc {
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+    }
+
+    .osc, .rc {
+      border-radius: 18px;
+      border-color: rgba(255,255,255,.08);
+    }
+
+    .osc { padding: 30px; }
+    .rc { padding: 22px; }
+
+    .csc {
+      border-radius: 14px;
+      background: rgba(16,35,61,.78);
+    }
+
+    .csc:hover {
+      border-color: rgba(214,180,92,.25);
+      box-shadow: 0 12px 30px rgba(0,0,0,.2);
+    }
+
+    .nsb {
+      border-radius: 12px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #d6b45c, #b88e32);
+    }
+
+    @media (max-width: 1200px) {
+      .sbody { grid-template-columns: 250px minmax(0,1fr) 280px; }
+      .ca { padding-left: 20px; padding-right: 20px; }
+      .msg { max-width: 84%; }
+    }
+
+    @media (max-width: 900px) {
+      .sh { padding: 0 14px; }
+      .sbody { grid-template-columns: 1fr; }
+      .lsb, .rsb { display: none; }
+      .ca { padding: 18px 14px; }
+      .msg { max-width: 92%; }
+      .epc { padding: 14px 16px; }
+      .ia { padding: 12px 14px 14px; }
+      .rb { padding: 22px 16px 40px; }
+      .rh { padding: 16px; }
+    }
+
+
+    /* ============================================================
+       CHAT-FIRST UI — VISUAL ONLY
+       Keeps all existing IDs, event handlers and simulation logic.
+       ============================================================ */
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: #ffffff;
+      color: #1f2937;
+    }
+
+    #sim {
+      min-height: 100vh;
+      height: 100vh;
+      background: #ffffff;
+      color: #1f2937;
+    }
+
+    /* Minimal ChatGPT-style top bar */
+    .sh {
+      height: 56px;
+      padding: 0 18px;
+      background: rgba(255,255,255,.96);
+      color: #202123;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: none;
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    .shi {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      box-shadow: none;
+    }
+
+    .sht {
+      color: #202123;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .sht span {
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .sb {
+      color: #6b7280;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 5px 9px;
+    }
+
+    .mc {
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+    }
+
+    /* Three zones, but visually centered around the conversation */
+    .sbody {
+      display: grid;
+      grid-template-columns: 245px minmax(500px, 1fr) 255px;
+      min-height: calc(100vh - 56px);
+      height: calc(100vh - 56px);
+      background: #ffffff;
+    }
+
+    /* Left: conversation/persona switcher */
+    .lsb {
+      background: #f7f7f8;
+      border-right: 1px solid #e5e7eb;
+      padding: 14px 10px;
+      color: #374151;
+      overflow-y: auto;
+    }
+
+    .ssl {
+      color: #8b8f98;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      padding: 8px 9px;
+      margin-bottom: 5px;
+    }
+
+    .ec {
+      padding: 9px;
+      margin: 2px 0;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .ec:hover {
+      background: #ececef;
+      border-color: transparent;
+      transform: none;
+    }
+
+    .ec.active {
+      background: #e5e5e7;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .ea {
+      width: 36px;
+      height: 36px;
+      box-shadow: none;
+    }
+
+    .en {
+      color: #202123;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .er {
+      color: #8b8f98;
+      font-size: 10px;
+    }
+
+    .ed {
+      color: #9ca3af;
+      font-size: 9px;
+    }
+
+    .ssec {
+      background: transparent;
+      border: 0;
+      border-top: 1px solid #e5e7eb;
+      border-radius: 0;
+      padding: 14px 9px 5px;
+      box-shadow: none;
+    }
+
+    .ssec .ssl {
+      padding-left: 0;
+    }
+
+    .cli {
+      color: #6b7280;
+    }
+
+    .ibg {
+      background: #e5e7eb;
+    }
+
+    /* Center: actual ChatGPT-like conversation */
+    .mp2 {
+      background: #ffffff;
+      color: #374151;
+    }
+
+    .epc {
+      min-height: 70px;
+      padding: 12px 28px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      color: #202123;
+      box-shadow: none;
+    }
+
+    .pal {
+      width: 42px;
+      height: 42px;
+      box-shadow: none;
+    }
+
+    .pn {
+      color: #202123;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .pr {
+      color: #8b8f98;
+      font-size: 11px;
+    }
+
+    .chip {
+      color: #6b7280;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+    }
+
+    .ca {
+      padding: 22px 30px 24px;
+      background: #ffffff;
+      gap: 22px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .msg {
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .msg.sup {
+      flex-direction: row-reverse;
+    }
+
+    .mav {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      box-shadow: none;
+      flex: 0 0 auto;
+    }
+
+    .msg.emp .mav {
+      background: #e5e7eb;
+      color: #4b5563;
+    }
+
+    .msg.sup .mav {
+      background: #10a37f;
+      color: #ffffff;
+    }
+
+    .mb {
+      max-width: 78%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      box-shadow: none;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .msg.emp .mb {
+      background: #f7f7f8;
+      color: #374151;
+      border-color: #e5e7eb;
+      border-top-left-radius: 4px;
+    }
+
+    .msg.sup .mb {
+      background: #f0fdf4;
+      color: #1f2937;
+      border-color: #d1fae5;
+      border-top-right-radius: 4px;
+    }
+
+    .mm {
+      color: #9ca3af;
+      font-size: 9px;
+      margin-top: 4px;
+    }
+
+    /* Input area: floating chat composer */
+    .ia {
+      padding: 10px 26px 18px;
+      background: #ffffff;
+      border-top: 0;
+      box-shadow: none;
+    }
+
+    .ih {
+      display: none;
+    }
+
+    .si {
+      min-height: 48px;
+      max-height: 120px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #1f2937;
+      border-radius: 14px;
+      padding: 13px 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+
+    .si::placeholder {
+      color: #9ca3af;
+    }
+
+    .si:focus {
+      border-color: #9ca3af;
+      background: #ffffff;
+      box-shadow: 0 1px 5px rgba(0,0,0,.08);
+      outline: none;
+    }
+
+    .sndb {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      padding: 0;
+      border-radius: 12px;
+      background: #202123;
+      color: #ffffff;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sndb:hover {
+      background: #000000;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Right: assessment information becomes a quiet utility rail */
+    .rsb {
+      background: #fafafa;
+      border-left: 1px solid #e5e7eb;
+      padding: 16px 14px;
+      color: #4b5563;
+      box-shadow: none;
+    }
+
+    .rsb .ssl {
+      color: #8b8f98;
+    }
+
+    .rsb .ssec {
+      border-top-color: #e5e7eb;
+    }
+
+    .nt {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #6b7280;
+      border-radius: 9px;
+    }
+
+    .esb {
+      background: #fff7f7;
+      border: 1px solid #fee2e2;
+      color: #b91c1c;
+      border-radius: 8px;
+    }
+
+    .sm {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #6b7280;
+      border-radius: 7px;
+    }
+
+    /* Hide decorative labels that make it feel like a dashboard.
+       The functionality remains present. */
+    .ca::before {
+      content: "";
+      display: block;
+      min-height: 2px;
+    }
+
+    /* Results: retain existing result logic but use a clean report surface */
+    #res {
+      background: #f7f7f8;
+      color: #202123;
+    }
+
+    .rh {
+      min-height: 58px;
+      padding: 12px 24px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: none;
+    }
+
+    .rt {
+      color: #202123;
+      font-size: 18px;
+    }
+
+    .rb {
+      width: min(1180px, 100%);
+      padding: 24px;
+    }
+
+    .osc, .rc, .csc {
+      box-shadow: none;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .osc, .rc {
+      border-radius: 12px;
+    }
+
+    .csc {
+      border-radius: 10px;
+    }
+
+    .csc:hover {
+      border-color: #d1d5db;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .nsb {
+      background: #202123;
+      border-radius: 9px;
+      box-shadow: none;
+    }
+
+    /* Responsive: on tablets/mobile, make the conversation the main UI */
+    @media (max-width: 1050px) {
+      .sbody {
+        grid-template-columns: 215px minmax(0,1fr);
+      }
+      .rsb {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .sbody {
+        grid-template-columns: 1fr;
+      }
+      .lsb {
+        display: none;
+      }
+      .epc {
+        padding: 10px 14px;
+      }
+      .ca {
+        padding: 16px 12px;
+      }
+      .msg {
+        max-width: 100%;
+      }
+      .mb {
+        max-width: 86%;
+      }
+      .ia {
+        padding: 8px 10px 12px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- SIMULATION SCREEN -->
+  <div id="sim">
+    <div class="sh">
+      <div class="shl">
+        <div class="shi">🏦</div>
+        <div class="sht">Supervisory Skills <span>Banking Leadership Simulation</span></div>
+      </div>
+      <div class="shst">
+        <div class="sb active" id="ssbadge">
+          <div class="sd"></div> Simulation Active
+        </div>
+        <div class="mc p1" id="mchip">Part 1</div>
+      </div>
+    </div>
+    <div class="sbody">
+      <!-- Left Sidebar -->
+      <div class="lsb">
+        <div>
+          <div class="ssl">Team Members</div>
+          <div id="roster"></div>
+        </div>
+        <div class="ssec">
+          <div class="ssl">Session Progress</div>
+          <div class="pbw">
+            <div class="pbf" id="pbar" style="width:5%"></div>
+          </div>
+          <div class="ic" id="icnt">Interactions: 0</div>
+        </div>
+        <div class="ssec">
+          <div class="ssl">Quick Commands</div>
+          <div style="font-size:11.5px;color:var(--ts);line-height:1.7">
+            
+            Type <strong style="color:#fca5a5">"END SIMULATION"</strong> → Get Report
+          </div>
+        </div>
+        <button class="esb" id="esb">⚠ End Simulation &amp; Get Report</button>
+      </div>
+      <!-- Main Panel -->
+      <div class="mp2">
+        <div class="epc">
+          <div class="pal" id="pal"></div>
+          <div class="pi">
+            <div class="pn" id="pname">—</div>
+            <div class="pr" id="prole"></div>
+            <div class="pm" id="pmeta"></div>
+          </div>
+          <div class="pms">
+            <div class="pml">Current Mood</div>
+            <div class="pmv" id="pmood">–</div>
+          </div>
+        </div>
+        <div class="ca" id="chat"></div>
+        <div class="ti" id="typing">
+          <div class="td">
+            <div class="tdt"></div>
+            <div class="tdt"></div>
+            <div class="tdt"></div>
+          </div>
+        </div>
+        <div class="ia">
+          <div class="ih">Respond as Supervisor · Keep your response natural and specific · "END SIMULATION" → Report</div>
+          <div class="ir">
+            <textarea class="si" id="inp" placeholder="Type your response as the Supervisor…" rows="1"></textarea>
+            <button class="sndb" id="sndbtn">Send ↑</button>
+          </div>
+        </div>
+      </div>
+      <!-- Right Sidebar -->
+      <div class="rsb">
+        <div>
+          <div class="ssl">Leadership Competencies Assessed</div>
+          <ul class="cl" id="clist">
+            <li class="cli"><span class="cld"></span>Motivation (Mastery, Autonomy, Purpose)</li>
+            <li class="cli"><span class="cld"></span>Communication Quality &amp; Clarity</li>
+            <li class="cli"><span class="cld"></span>Handling Resistance</li>
+            <li class="cli"><span class="cld"></span>Coaching Style Alignment</li>
+            <li class="cli"><span class="cld"></span>SBI Feedback (CCL Model)</li>
+            <li class="cli"><span class="cld"></span>Assertive Communication</li>
+            <li class="cli"><span class="cld"></span>Decision Making</li>
+            <li class="cli"><span class="cld"></span>Delegation &amp; Empowerment</li>
+            <li class="cli"><span class="cld"></span>Public Recognition / Private Correction</li>
+            <li class="cli"><span class="cld"></span>Firmness with Kindness</li>
+            <li class="cli"><span class="cld"></span>Business &amp; People Leadership</li>
+            <li class="cli"><span class="cld"></span>Listening (Facts, Emotions, Values)</li>
+            <li class="cli"><span class="cld"></span>Operational Control</li>
+            <li class="cli"><span class="cld"></span>Personality &amp; Values Understanding</li>
+            <li class="cli" id="c15" style="display:none"><span class="cld" style="background:var(--er)"></span>Leading
+              Under Pressure (Adv.)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="ssl">Interaction Intensity</div>
+          <div class="im">
+            <div class="il2"><span id="intlbl">Low</span><span id="intpct">20%</span></div>
+            <div class="ibg">
+              <div class="ibf" id="intbar" style="width:20%;background:var(--ok)"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="ssl">Private Notes</div>
+          <textarea class="nt" placeholder="Your private simulation notes…"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="res">
+    <div class="rh">
+      <div>
+        <div class="rt">📊 Assessment Results</div>
+        <div style="font-size:13px;color:var(--ts);margin-top:4px">Supervisory Skills – Banking Leadership Simulation
+        </div>
+      </div>
+      <button class="nsb" id="nsbtn">↺ New Simulation</button>
+    </div>
+    <div class="rb" id="resb"></div>
+  </div>
+
+  <script>
+    // ============================================================
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const CFG = { tdMin: 1200, tdMax: 2800, maxI: 40 };
+    
+
+    // ============================================================
+    // CHARACTERS
+    // ============================================================
+    const CHARS = {
+      latifa: { id: 'latifa', name: 'Latifa', role: 'Data Entry Officer', init: 'LA', cls: 'la', exp: 'New – <6 months', style: 'Amiable', mat: 'Low Task / Low Will', grad: 'linear-gradient(135deg,#7c3aed,#a855f7)', sc: '#a855f7', p1s: ['new_exp', 'data_q', 'overwhelm', 'feedback_n', 'error_h', 'train_r'], p2s: ['promises', 'no_fb'] },
+      ahmed: { id: 'ahmed', name: 'Ahmed', role: 'Customer Service', init: 'AH', cls: 'ah', exp: 'Developing – 1 year', style: 'Expressive', mat: 'Low-Med Task / High Will', grad: 'linear-gradient(135deg,#0ea5e9,#38bdf8)', sc: '#38bdf8', p1s: ['idea_s', 'complaint', 'autonomy', 'growth_d', 'transparency'], p2s: ['distrust', 'badmouth', 'cust_bad'] },
+      shamma: { id: 'shamma', name: 'Shamma', role: 'Teller', init: 'SH', cls: 'sh', exp: 'Experienced – 3 years', style: 'Expressive / Amiable', mat: 'High Task / Variable Will', grad: 'linear-gradient(135deg,#059669,#34d399)', sc: '#34d399', p1s: ['micro', 'workload', 'colleague', 'salary', 'fb_exp', 'empower_n'], p2s: ['style_ann', 'unfair', 'guarantees'] },
+      khaled: { id: 'khaled', name: 'Khaled', role: 'Accountant', init: 'KH', cls: 'kh', exp: 'Senior – 8+ years', style: 'Analytical / Driver', mat: 'High Task / High Will', grad: 'linear-gradient(135deg,#dc2626,#f87171)', sc: '#f87171', p1s: ['recon', 'trust_a', 'fin_concern', 'health', 'deleg_exp'], p2s: ['waste_time', 'cynicism', 'not_conv'] }
+    };
+    const P1_ORDER = ['latifa', 'ahmed', 'shamma', 'khaled'];
+    const P2_ORDER = ['khaled', 'shamma', 'ahmed', 'latifa'];
+
+    // ============================================================
+    // RESPONSE POOLS
+    // ============================================================
+    const R = {
+      latifa: {
+        open: "Honestly, I'm here to learn being new in this bank and I expect a lot from you.",
+        new_exp: {
+          S: ["That's really helpful — clear expectations make me feel more confident. Could you tell me who I should go to if I have questions when you're not available?", "Thank you for being so specific. Knowing exactly what's expected makes a real difference. What should I prioritize first?", "I appreciate that. Can I check in with you regularly to make sure I'm on track?"],
+          A: ["Okay, I'll try my best. Though I'm still not sure about a few things — could you clarify?", "Alright. I'll do what I can. I just sometimes don't know if I'm doing things correctly.", "Could you be a bit more specific about how you'd like me to prioritize my tasks?"],
+          W: ["I'm not sure what I should actually do from here. Can you give me more specific guidance?", "That sounds fine in theory, but I'm still unclear about the day-to-day expectations.", "With respect, I expected more direction. General encouragement doesn't tell me what to actually do."],
+          P: ["I don't feel heard. I came expecting clear direction but this feels very one-sided.", "My previous manager at least gave me specific expectations. I'm worried this will be the same pattern.", "How am I supposed to do my job well without proper guidance?"]
+        },
+        data_q: {
+          I: "I've been finding duplicate customer records — some accounts appear twice with slightly different data. I tried to flag them but wasn't sure of the right process. Did I do the right thing?",
+          S: ["Thank you for explaining the proper process. I'll follow that going forward and document each case.", "Knowing the impact of duplicates on service makes me understand why it matters. I'll be more careful.", "Should I also create a log of the ones I find so we can track the pattern?"],
+          A: ["I'll be more careful. But I'm still not sure about the exact process — can you walk me through it?", "Alright. I'll check before making changes going forward. But what about the ones I've already flagged?", "I understand. Can you at least tell me who to report these to?"],
+          W: ["What exactly should I do now? I still don't have a clear process.", "I hear you, but I'm not sure what 'handle it properly' means in practice.", "I'm confused. Is what I did wrong or right? I really need specific feedback."],
+          P: ["I tried my best and came to you for guidance. If the answer is 'figure it out,' that's not helpful for someone new.", "That doesn't really answer my question. When was the last time you gave me concrete feedback?", "I feel like I've been left to manage this alone. That's not what I expected."]
+        },
+        overwhelm: {
+          I: "I have to be honest — there's a lot on my plate and I'm struggling to keep up. I don't want to fall behind but I'm feeling overwhelmed.",
+          S: ["Thank you for understanding. Knowing you're here to support me actually makes me feel less stressed. Can we go through my task list together?", "I'll work on being more proactive about flagging issues early. Thank you for listening.", "I'll let you know if I need help instead of trying to manage everything alone."],
+          A: ["Okay, I'll try to manage better. I just want to make sure you understand — it's a lot for someone who's still learning.", "I'll keep going. But please check in on me occasionally?", "Alright. I hope it gets easier soon."],
+          W: ["I understand you're busy, but I needed this conversation to lead somewhere practical.", "Okay, but the workload hasn't changed. How do I manage this?", "I came to you for help, not just reassurance that it's normal. I need actual support."],
+          P: ["That's dismissive. I said I'm overwhelmed and the response is basically 'manage yourself.' That's not supportive.", "This is exactly why new employees don't speak up — they worry they'll be ignored.", "I don't think you actually heard what I said."]
+        },
+        feedback_n: {
+          I: "Can I ask — how do you think I'm doing? I've been here a few weeks and haven't received any formal feedback. I'd like to know if I'm on the right track.",
+          S: ["Thank you — that's really useful. Specific feedback helps me know exactly what to improve. Can we schedule regular check-ins?", "Knowing what I'm doing well gives me confidence. I'll act on the development areas right away.", "That kind of honest, constructive feedback is exactly what I needed."],
+          A: ["Okay. I just hope I'm meeting expectations. It would help to hear more specific examples.", "Thank you. It's nice to know where I stand.", "I'll keep working hard. At least I know you're paying attention."],
+          W: ["That's very general. What exactly have I done well, and what do I need to improve?", "I can't grow on vague encouragement. Is there something specific I should focus on?", "When was the last time you actually observed my work to give real feedback?"],
+          P: ["You haven't really been watching what I do, have you? I find it hard to believe you can give meaningful feedback.", "This isn't feedback — it's pleasantries. I expected more from this conversation.", "Weeks without feedback is not okay for someone who's still learning."]
+        },
+        error_h: {
+          I: "I made a mistake today — I entered the wrong account number on a form and only noticed afterward. I corrected it, but I'm worried. Did I handle it the right way?",
+          S: ["That makes me feel better. I'll make sure to follow the escalation process next time and document everything properly.", "Thank you for not making me feel worse about it. Could you share the formal error reporting procedure?", "Knowing how to handle mistakes correctly is really important to me."],
+          A: ["Okay, I'll be more careful. I still need to know the right protocol for next time.", "Thank you. I just need to know the exact steps so I handle it properly going forward.", "Alright. I'll flag it and keep an eye on similar situations."],
+          W: ["I'm still not sure if what I did was right. Can you specifically tell me the correct procedure?", "You said 'don't worry about it' but I am worried. What should I have done?", "I came for clear guidance, not just reassurance."],
+          P: ["I feel like you're brushing it off. A mistake in banking matters. What's the proper procedure?", "That response makes me more anxious, not less. What if I make a bigger mistake?", "I expected more seriousness about this. This is a bank."]
+        },
+        train_r: {
+          I: "Are there training resources or courses available for someone in my role? I want to improve faster and feel formal training would really help.",
+          S: ["That's amazing. Knowing there's a path for development really motivates me. Which ones should I start with?", "I really appreciate you taking my development seriously. I'll come back with a plan.", "Thank you — that's exactly what I was hoping to hear."],
+          A: ["Good to know. Could you point me in the right direction about who to contact?", "I'll follow up on that. Thank you.", "Alright. I'll look into it."],
+          W: ["That's a bit vague. I was hoping for specific direction, not just a general 'there are options.'", "Who specifically should I speak to?", "Could you be more concrete? I want to act on this."],
+          P: ["Training is never 'not the right time' for someone new. I'm falling behind without proper support.", "It feels like my development isn't a priority here.", "I'm disappointed. I came with a genuine request and feel it's being deprioritized."]
+        }
+      },
+      ahmed: {
+        open: "I wanted to share something with you. I've been observing our customer interactions and I think there's a way we could improve our response time. Do you have a few minutes?",
+        idea_s: {
+          S: ["I'm glad you're open to hearing this. If we streamlined the first response process, we could cut wait times by maybe 30%. What do you think?", "Here's my idea — what if we created a standard response library for common queries? It would save time and improve consistency.", "I appreciate that. The core of my suggestion is about how we handle complaint escalation — I think there's a better path."],
+          A: ["Sure. I'll explain my idea. It might not be perfect but I think it could add value.", "My suggestion is about response time. Though I'm curious if you've already thought about this.", "Here it is — I think we can do better with how we handle repeat complaints."],
+          W: ["I hope this isn't one of those conversations where I share and nothing happens. I've had that before.", "Will this actually go anywhere? I don't want to invest in sharing ideas that get ignored.", "I'm not sure you're actually looking for input. Are you just being polite?"],
+          P: ["Dismissing the idea before hearing it is exactly the kind of thing that demotivates me. Can you at least listen?", "I came with a genuine contribution. Why wouldn't you want to hear employee ideas?", "My previous supervisor always said 'good idea' and nothing ever happened. I hope this isn't the same."]
+        },
+        complaint: {
+          I: "I had a difficult customer today — they were aggressive about a fee they didn't understand. I'm not sure I handled it as well as I should have. Can I talk to you about it?",
+          S: ["That's a really constructive way to look at it. I like that approach — validate the emotion, then address the issue.", "That feedback helps a lot. Knowing exactly what I could have done differently is much more useful than a general 'you did fine.'", "I think I was trying to jump to solutions too quickly. I'll work on listening more actively before responding."],
+          A: ["That makes sense. I'll try it next time. Could we maybe do a practice run sometime?", "Okay, I'll keep those tips in mind. It would help to have guidelines on handling aggressive customers.", "Alright. I'll learn from it."],
+          W: ["That's a bit general. Can you give me more specific techniques for handling an emotionally escalated customer?", "I've read the policy already. I was hoping for actual coaching on how to handle the situation differently.", "The process didn't prepare me for how emotional the customer was."],
+          P: ["I feel like this conversation is about protecting the bank rather than helping me grow.", "That response feels like a policy reading, not a coaching conversation. I came for mentorship.", "My customers sometimes speak badly about our department. Maybe there's a reason for that."]
+        },
+        autonomy: {
+          I: "I've been in this role for over a year and I feel ready for more responsibility. I'd like to handle complex cases independently without checking in every time. What do you think?",
+          S: ["Thank you for trusting me with that. What specific criteria should I meet to demonstrate readiness?", "I appreciate that approach — a trial period makes complete sense. I'll take it seriously.", "That feels fair. What would success look like for this trial?"],
+          A: ["Okay, that's reasonable. I'll continue checking in on complex cases for now. But let's revisit this in a month.", "Alright. I'll work toward earning that autonomy.", "Fine. I'll follow the process."],
+          W: ["So there's no plan for this? I feel like I'm not being taken seriously.", "I've brought this up before. Each time I'm told to wait. When exactly does it happen?", "That's the third time I've raised this. I'm starting to wonder if this bank is the right fit."],
+          P: ["You talk a good game about development, but when it comes to actually giving responsibility, nothing changes.", "My previous boss made a lot of promises that were never met. I hope this isn't the same.", "You talk sweet but action is something else."]
+        },
+        growth_d: {
+          I: "Can I ask — where do you see me going in this organization? I'm not just interested in doing this job forever. I'm thinking about my future here.",
+          S: ["That's exactly what I wanted to hear. Knowing there's a real path — not just words — is motivating. Can we put together a development plan?", "I appreciate your investment in my growth. I'll take this conversation as a commitment.", "That's the kind of honest, forward-looking conversation I was hoping for."],
+          A: ["Good to know there are options. I just need to see movement, not just possibilities.", "That's encouraging. Though I'd like a more specific timeline.", "Alright. I'll stay committed. A documented plan would help."],
+          W: ["'Hard work pays off' is something I could hear anywhere. I want a specific roadmap.", "What specifically do I need to do to get to the next level?", "This feels like a non-answer. A career question deserves a real answer."],
+          P: ["I'm not looking for a pep talk. I'm looking for a career conversation.", "Why try when growth seems to be at the supervisor's discretion with no transparency?", "This is the kind of conversation that makes talented employees look elsewhere."]
+        },
+        transparency: {
+          I: "I sometimes feel like decisions are made above us that affect how we work, but nobody tells us why. It makes it hard to be fully committed when I don't understand the bigger picture.",
+          S: ["I appreciate that. Transparency matters to me. Knowing the reasoning behind decisions helps me do my job better.", "Thank you for being honest with me. I can accept limitations as long as they're explained honestly.", "Can we have regular updates on how things are going at the branch level?"],
+          A: ["Okay. I understand not everything can be shared. I just want to feel less in the dark.", "I'll try to focus on what I can control.", "Alright. I'll trust the process more if I understand the context."],
+          W: ["That feels like a deflection. I told you that lack of transparency demotivates me and the response is 'just trust us.'", "I've heard 'we'll communicate better' before. What specifically is going to change?", "This exactly proves my point — I asked about transparency and got an unclear answer."],
+          P: ["Even your seniors would agree there's a communication problem here.", "This doesn't feel like a two-way conversation. I'm sharing genuine concerns and getting corporate language back.", "If you want my commitment, I need to feel like I'm part of something, not just a worker following orders."]
+        }
+      },
+      shamma: {
+        open: "I've been working at this teller station for three years and I think I've proven I know what I'm doing. But lately I feel like I'm being watched too closely. I'd like to talk about that.",
+        micro: {
+          S: ["I appreciate you hearing me out. All I'm asking for is to be trusted to do my job without constant oversight. I'll flag anything that needs your input.", "Thank you for understanding. Trust goes both ways. I'll keep you informed on the things that matter.", "That makes sense. I'm not asking to be left completely alone — just given space to use my experience."],
+          A: ["Okay. I'll try to see it from your perspective. But I hope you see mine too — three years is not nothing.", "Let's find a middle ground. I'll flag things that need attention.", "I hear you. Just please keep in mind that too much oversight slows me down."],
+          W: ["You're not really addressing what I said. The response is more justification for why you do it — that's not a solution.", "I expected more acknowledgment of my experience.", "Saying 'I understand' and then continuing the same behavior doesn't feel like understanding."],
+          P: ["When was the last time you gave me feedback based on actual trust, rather than checking up on me?", "This is exactly why I'm frustrated. You're not listening to the emotional side of this.", "You are not a fair boss if experience counts for nothing."]
+        },
+        workload: {
+          I: "I need to be honest — the workload has been unsustainable. We're short-staffed and I'm handling twice the normal volume. I'm starting to feel it on my quality of work.",
+          S: ["Thank you for taking this seriously. Just knowing it's being addressed makes a difference. What do you need from me in the meantime?", "I appreciate that. Let's figure out a short-term solution together.", "That's all I needed to hear — that you acknowledge it and are working on it."],
+          A: ["Okay. But please don't let this drag on — I can't sustain this pace.", "I trust you'll do what you can. Please update me when something changes.", "Fine. I'll manage. Let's revisit this in two weeks if nothing has changed."],
+          W: ["'We're all busy' doesn't help when I'm the one who's stretched.", "I'm not asking for sympathy — I'm asking for action. What are you going to do about the staffing issue?", "I've raised this before and nothing has changed. At what point do you take this to management?"],
+          P: ["My problem existed since you joined and nothing has been done. How long am I supposed to wait?", "If this continues, my performance will drop — and I want that on record.", "I'm starting to question whether I'm valued here."]
+        },
+        colleague: {
+          I: "I need to talk about something bothering me. There's a colleague who I feel isn't pulling their weight, and it's affecting my ability to do my job.",
+          S: ["Thank you. I wasn't sure if I should bring it up, but I'm glad I did. I'll focus on what I can control and trust you to handle the team dynamics.", "I appreciate that you listened without dismissing it. Just needed to know it's being taken seriously.", "That's fair. I'll document specific instances if needed."],
+          A: ["Okay, I'll try the direct approach first. But I want to revisit this if it doesn't improve.", "I'll see if I can work it out with them. Just know it's affecting me.", "Fine. But please keep an eye on the team dynamics — it's not just me who's noticed."],
+          W: ["You asked me to 'handle it yourself' but that's what I've been trying to do. I came to you because I need support.", "That response doesn't help me practically. What exactly should I say to this colleague?", "I feel dismissed. I brought a real concern and got a generic response."],
+          P: ["Sometimes I wonder why I bother raising issues. Nothing ever gets properly addressed.", "Everyone can see the problem except management. That's telling.", "What exactly is a supervisor for if not for situations like this?"]
+        },
+        salary: {
+          I: "I'll be direct — I feel underpaid for what I do. Three years in, with the volume and complexity I handle, I expected my compensation to reflect that. Is there anything that can be done?",
+          S: ["I respect that you're being honest with me. What can I actually do to position myself for a review?", "Thank you for not dismissing it. If you advocate for me, that means something.", "Alright. I'll be patient if there's a real process. I just needed to know I'm not invisible."],
+          A: ["I'll wait for the formal review process. But I hope my case will be presented fairly.", "I trust you'll do what you can within your authority. Just don't let it get lost.", "Fine. I'll continue as I am, but I want it on record that I've raised this."],
+          W: ["That's the standard deflection. 'It's not up to me.' Surely you can advocate for me?", "Three years of patience. At what point does that get rewarded?", "I am underpaid and I believe most of my colleagues would agree."],
+          P: ["I expected more effort from you on this. Can you fight for me?", "This response tells me my contribution isn't valued. That's going to affect my motivation.", "I'm starting to keep my options open."]
+        },
+        fb_exp: {
+          I: "When was the last time you gave me actual feedback on my work? Not just 'good job' in passing — I mean real, specific feedback that helps me grow.",
+          S: ["That is specific and fair feedback. Exactly what I needed — not flattery, but truth. I'll act on that.", "Thank you for that. It shows you actually pay attention to what I do. That kind of recognition means more.", "Good feedback delivered properly improves how I work. This conversation already feels more valuable than six months of silence."],
+          A: ["Okay, that's something. I'd like us to have these conversations more frequently.", "I appreciate it. It's something I've been missing.", "Alright. Thank you."],
+          W: ["Telling me I'm 'doing well' without specifics is not feedback — it's noise.", "I came for a real developmental conversation. This feels like box-checking.", "I have been here three years. I think I deserve more than a surface-level assessment."],
+          P: ["I don't think you've been paying close enough attention to my work to give real feedback.", "This is the kind of conversation that makes me wonder if I have a real champion in my supervisor.", "I feel like a number, not a person."]
+        },
+        empower_n: {
+          I: "I want to talk about something positive. I think I'm ready to take on a mentoring role for newer colleagues. I have the experience and I genuinely want to give back.",
+          S: ["I'm glad you support this. I'll put together a simple mentoring plan. This feels like real growth.", "Thank you for recognizing that. I'll take this seriously and make sure it doesn't interfere with my core responsibilities.", "That means a lot. I've been waiting for this kind of trust. I won't let you down."],
+          A: ["Okay, I'll start small. But please make it official so people take it seriously.", "I appreciate the opening, even if it's informal at first.", "Alright. I'll give it a go."],
+          W: ["I came with a concrete suggestion and got 'maybe.' What needs to happen for this to become a yes?", "If not now, when exactly? I need a clear answer.", "I feel underutilized and this conversation isn't helping."],
+          P: ["I'm starting to think my three years of loyalty aren't as valued as I thought.", "If experienced staff aren't given growth opportunities, you'll lose them to organizations that will.", "It's frustrating that what I have to offer isn't being tapped."]
+        }
+      },
+      khaled: {
+        open: "I wanted to clarify a few things regarding the quarterly account reconciliation. There are some discrepancies I noticed that may need attention. I've already started reviewing them — just wanted to make sure we're aligned on the approach.",
+        recon: {
+          S: ["Good. We're aligned then. I'll proceed with my proposed approach and flag you on the key findings. I expect a summary by end of week.", "That's sensible. I'll keep the documentation detailed for a clear audit trail.", "Agreed. I appreciate that you trust my judgment on this. I'll come to you only if something unexpected comes up."],
+          A: ["Alright. I'll proceed and update you. Please leave the technical decisions to me — that's my area.", "Fine. I'll keep you posted on the major points. Just don't micromanage the methodology.", "Okay. Just make sure you're available if I need an executive decision quickly."],
+          W: ["With respect, I've been reconciling accounts for eight years. I need direction, not supervision of the details.", "What specifically do you want me to do differently? I'm not sure what you're adding to this conversation.", "I came to align, not to justify every step. Do you trust my approach or not?"],
+          P: ["I've been doing this since before you were in this role. Let me handle it and just be available for escalation.", "This level of scrutiny is actually slowing me down. Let me work.", "I don't need this much involvement in a routine task I've done hundreds of times."]
+        },
+        trust_a: {
+          I: "I want to be direct — I work best when I'm trusted to manage my responsibilities without being second-guessed at every step. I deliver results. That should speak for itself.",
+          S: ["Good. That's what I needed to hear. Give me the space, set the expectation, and I'll deliver. That's the deal.", "I appreciate that. As long as we have clarity on the outcome expected, you don't need to be involved in the process.", "Fair enough. I'll make sure you have visibility at the right moments."],
+          A: ["Alright. Let's try that. I'll come to you with updates at the right checkpoints.", "Okay. That seems workable. Just ensure you're available when I do need a decision.", "Fine. Let's see how that goes."],
+          W: ["What you're describing is still more involvement than I need. I don't require that level of oversight.", "I don't think you fully understand my track record. Check my output over the last several years.", "I'm asking for autonomy, not accountability avoidance. Those are very different things."],
+          P: ["I've been delivering without issue for eight years. I don't understand why this conversation is necessary.", "This feels like distrust dressed up as management. I'd rather we be honest about it.", "I work based on trust. If that's not the culture here, I take that very seriously."]
+        },
+        fin_concern: {
+          I: "I want to flag something broader than my immediate work. I'm seeing patterns in the numbers that concern me — there may be a financial risk that hasn't been properly escalated.",
+          S: ["Good. That's exactly the right response. I'll prepare a formal memo and route it through the proper channels with your support.", "I appreciate you taking this seriously. Let's document this carefully. I'll have a preliminary report to you by tomorrow morning.", "This is precisely the situation where I need your executive support. Thank you."],
+          A: ["Alright. I'll put something together. Please ensure it gets to the right people.", "Fine. I'll prepare the report. But I want to be on record as having raised this formally.", "Okay. Just make sure you follow up on the escalation."],
+          W: ["I'm not sure 'let's wait and see' is the appropriate response here. This is a financial risk matter.", "I brought this for action, not reassurance. What is the escalation plan?", "With respect, I shouldn't have to convince you that a financial risk needs immediate attention."],
+          P: ["I'll escalate this above you if it isn't handled appropriately. I have a professional responsibility here.", "The fact that this is being treated as routine concerns me about the risk culture of this branch.", "I'll document this conversation. If the risk materializes, there will be a record."]
+        },
+        health: {
+          I: "I don't usually talk about personal matters at work, but I'm dealing with a health issue that might affect my availability over the next few weeks. I wanted to be transparent rather than have you wonder.",
+          S: ["Thank you. I appreciate your discretion and support. I'll manage my workload carefully and keep you informed.", "Knowing you're handling it with that level of care makes this easier to share. I'll communicate about any schedule needs.", "That means a lot. I rarely ask for support, but knowing it's there if I need it is reassuring."],
+          A: ["Okay. I'll manage as best I can. I just needed you to know.", "Thank you. I'll take it one day at a time and let you know if my work is affected.", "Alright. I appreciate you listening."],
+          W: ["I shared something personal and the response feels purely operational. I didn't expect you to solve anything — just to acknowledge it.", "I'm not asking for pity. I'm asking for a human response.", "That was harder to share than you might realize. A little empathy would have gone a long way."],
+          P: ["That response is exactly why people don't share personal matters with managers. It becomes a business conversation.", "I told you about a health concern and you immediately jumped to work coverage. That's telling.", "Never mind. I'll handle it on my own."]
+        },
+        deleg_exp: {
+          I: "I want to discuss how I can take on some of the broader project coordination that currently goes through your desk. I have the capacity, the experience, and the judgment.",
+          S: ["Good. I'll prepare a transition plan for the items I'll take on. We can review it and I'll proceed once we're aligned.", "I appreciate the trust. I'll handle it with the same diligence I apply to everything.", "Agreed. Clear mandate, clear outcomes. I'll proceed and escalate only when necessary."],
+          A: ["Alright. We can start with some lower-risk items and build from there.", "Fine. A phased approach is acceptable. Let's define the first batch.", "Okay. I'll work with whatever you're comfortable delegating for now."],
+          W: ["A phased approach suggests you don't fully trust my capabilities. Let me be direct — what's the actual concern?", "I've been asking for expanded responsibility for some time. The pace of this conversation suggests it's not a real priority.", "I'm trying to help you manage a growing workload and the response is hesitation."],
+          P: ["If this organization doesn't trust me with appropriate responsibilities, I'll need to reconsider my commitment.", "I've earned the right to be trusted with more. I shouldn't need to argue for it.", "I know my worth. And right now I don't feel it's being recognized."]
+        }
+      }
+    };
+
+    // PART 2 RESPONSES
+    const R2 = {
+      khaled: {
+        open: "Where are we going with this now? I think we are wasting our time.",
+        waste_time: {
+          S: ["Alright. If you have a clear agenda and you're committed to making this productive, I'm listening. I have low tolerance for vague discussions.", "Fair enough. Then let's get to the point. What specifically are you expecting from me right now?", "Good. I respect directness. Tell me specifically what you need from me."],
+          A: ["Alright. I'll give you a few minutes. But I want to see where this actually leads.", "Fine. Let's see if this conversation is more productive than the last few.", "I'll hear you out. But I need substance, not generalities."],
+          W: ["That kind of vague opening is exactly what I meant. What is the actual point of this conversation?", "I need more reassurances. You don't sound convincing or confident right now.", "I don't have time today to listen to a sales pitch. Be direct."],
+          P: ["I want to talk to our area manager if this is the level of leadership we're working with.", "This is why people lose confidence in management. Say something meaningful.", "I've sat through too many conversations like this. I need real leadership, not management theater."]
+        },
+        cynicism: {
+          I: "You talk about change and improvement. I've heard this before from every new supervisor. Why would this time be any different?",
+          S: ["Fair point. I can't promise outcomes — only consistency of action. What I can commit to is this: I will not make a promise I can't keep. Judge me by what I do, not what I say.", "I hear your skepticism and I respect it. It's earned. What I'll ask for is a 90-day evaluation — judge me by actions.", "You're right to be cautious. I'm not asking you to believe me. I'm asking you to observe."],
+          A: ["I understand your concern. Give me a chance to demonstrate it through actions.", "Fair enough. I'll prove it through what I do. Let's set some checkpoints and evaluate together.", "That's a reasonable position."],
+          W: ["You're avoiding the question. Why should I believe this time will be different? Be specific.", "That's an answer that sounds good but says nothing. I need concrete reasons.", "I'm scared to change based on your encouragement. I need guarantees, not intentions."],
+          P: ["Even your seniors will agree with me about the inconsistency here. I keep all my options open.", "I don't trust words. And so far, this conversation is all words.", "Why try when nothing actually changes? Tell me something real."]
+        },
+        not_conv: {
+          I: "I need more reassurances. You don't sound convincing or confident to me.",
+          S: ["I hear you. Let me be direct: here's exactly what I commit to. Here's what I expect of you. And here's how we'll know it's working. Does that feel more concrete?", "Fair challenge. Confidence comes from clarity. Let me give you specifics rather than general statements.", "You're right to challenge me. Here's my actual proposal — not general talk."],
+          A: ["I understand. Let me be more specific. Here's what I mean concretely.", "Alright. Let me reframe that more clearly.", "Fair enough. Here's the direct version."],
+          W: ["You're struggling to respond to honest feedback. That itself is not reassuring.", "I'm not being difficult — I'm being honest. And the response I'm getting doesn't inspire confidence.", "If I were your manager evaluating your leadership, this moment would concern me."],
+          P: ["I want to speak with someone else. This conversation is not going anywhere.", "This is the kind of leadership that makes experienced staff disengage.", "You've confirmed my concerns rather than addressed them."]
+        }
+      },
+      shamma: {
+        open: "You know, your management style is starting to get on my nerves. I don't know how to say this diplomatically, so I'll just say it.",
+        style_ann: {
+          S: ["I appreciate you being direct with me. That takes courage. Tell me specifically what about my approach bothers you and I'll listen.", "Thank you for saying it outright. I'd rather know. What specifically would you like to see me do differently?", "I hear you. That's fair feedback. Tell me more about what specifically triggers that reaction."],
+          A: ["Okay. I'll take that on board. Can you give me specific examples?", "Alright. I'll try to adapt. What would a better approach look like from your perspective?", "Fair enough. Tell me what you prefer."],
+          W: ["That kind of response makes me feel like you're not actually hearing me.", "Dismissing my concern as just 'emotional' is exactly the problem I'm describing.", "You asked me to be honest and now you're getting defensive. Which do you want?"],
+          P: ["I'm done trying to explain this. If you can't hear me, I'll find someone who can.", "This is exactly what I meant. You're not listening to how I feel.", "I don't have energy for a conversation where my feelings don't matter."]
+        },
+        unfair: {
+          I: "I'll say it — I don't think you're a fair boss. Certain people seem to get special treatment and I don't. I want that on record.",
+          S: ["I respect that you said it directly. Tell me specifically where you've seen unfairness — give me examples so I can genuinely understand and address it.", "That's a serious observation and I don't take it lightly. I want to understand exactly what you're seeing.", "Thank you for not letting this fester. If there's a perception of unfairness, that's something I need to address — real or not."],
+          A: ["Okay. I hear you. Let's talk about specific situations so I understand better.", "Alright. I want to address this seriously. Give me an example.", "Fair enough. What specifically makes you feel that way?"],
+          W: ["Telling me you 'treat everyone equally' without acknowledging my concern doesn't resolve it.", "You asked me what's wrong and when I told you, you got defensive. That proves my point.", "I didn't expect this to be easy, but I did expect to be heard."],
+          P: ["This conversation is going nowhere. I'll take this further if needed.", "You're more concerned with defending yourself than understanding the issue.", "I'm putting this in writing so there's a record."]
+        },
+        guarantees: {
+          I: "I'm scared to trust the process after everything that's happened. I need real guarantees before I'm willing to commit to this change.",
+          S: ["I can't guarantee outcomes — but I can guarantee transparency and honesty. And I can commit to specific actions within my control. Is that a start?", "Your caution makes sense. I won't overpromise. What I can offer is: a clear plan, regular check-ins, and your feedback actively considered.", "That's fair. Let me be concrete about what I will and won't commit to. Because empty promises have already cost trust."],
+          A: ["I can't guarantee everything, but I can tell you what I'll commit to. Here's the honest version.", "Alright. Let me be specific rather than general. Here's what I can actually promise.", "Fair enough. Let me earn your trust through specific actions rather than assurances."],
+          W: ["You're asking me to trust you but you're not actually saying anything concrete.", "This is the same speech I've heard before. I need evidence, not promises.", "If you can't back up what you're saying, don't be surprised when I don't believe it."],
+          P: ["I'm keeping all my options open. This conversation hasn't changed my position.", "I need much more than this. And right now, you're not providing it.", "I've made up my mind already. Nothing in this conversation has moved me."]
+        }
+      },
+      ahmed: {
+        open: "Why should I bother trying to improve when everyone in the company is badmouthing the department anyway? What's the point?",
+        badmouth: {
+          S: ["That's a real concern and I'm not going to dismiss it. Tell me what's being said so we can figure out what's true and what needs addressing.", "I appreciate your honesty. The fact that you're telling me this rather than just disengaging says something good about you. Let's work on it together.", "Okay. That's important. Tell me specifically what you've heard and from whom — because if there's a real reputational issue, we need to address it head-on."],
+          A: ["I understand the frustration. Let's separate fact from perception and address it together.", "Okay. What specifically are people saying and where is this coming from?", "Alright. What have you heard exactly?"],
+          W: ["That response sounds like damage control, not genuine engagement with the issue.", "You're telling me to focus and ignore the noise — but the noise affects how I work every day.", "Dismissing my concern as 'not your problem' is not leadership. It's avoidance."],
+          P: ["That's exactly the response I expected. And it's exactly why I stopped trying.", "You just proved my point. Leadership should address this, not sidestep it.", "I'm starting to think I should look at my options more seriously."]
+        },
+        distrust: {
+          I: "I don't trust you yet. I've had supervisors before who made promises that disappeared. How is this different?",
+          S: ["That's a fair and mature thing to say. I'd rather know that than have you nodding along without believing it. Let me tell you specifically what I'll do differently.", "I respect that position. Trust is earned, not declared. So I won't ask you to trust me — I'll ask you to watch.", "Thank you for being direct. I won't make a promise I can't keep. If things change, you'll hear from me directly, not through the grapevine."],
+          A: ["I understand. Give me a chance to demonstrate it and hold me accountable if I don't deliver.", "That's a fair starting point. I'll accept the position and work to change it through actions.", "Alright. I'll prove it over time. Let's set clear expectations we can both monitor."],
+          W: ["Telling me to 'give you a chance' is exactly what the last supervisor said.", "I'm looking for substance and I'm getting reassurance. Those aren't the same thing.", "I asked how it's different and you told me to trust you. That's circular."],
+          P: ["I still have all my options open. Nothing in this conversation has changed that.", "You talk sweet but action is something else. I've learned not to be moved by words.", "I'll believe it when I see it. And so far, I haven't seen it."]
+        },
+        cust_bad: {
+          I: "My customers speak badly about our department. They say we're slow, unclear, and don't care about resolving things. That's hard to hear when I'm doing my best.",
+          S: ["Thank you for sharing that — and I can hear how hard it is to receive that kind of feedback when you're genuinely trying. What specifically are they saying?", "That's important information and it reflects on all of us, not just you. Let's act on it together.", "You're right to take that seriously. It might be a systemic issue. Let's map out where the breakdown is happening."],
+          A: ["I hear you. That's tough. Let's look at what we can improve systematically.", "Okay. I appreciate you raising this. We should address the root cause together.", "Alright. Let's take this seriously and figure out where the real gaps are."],
+          W: ["Telling me the policy is fine doesn't address why customers are feeling that way.", "You're addressing the symptom, not the cause. The issue is deeper than the process.", "I came with a real concern and I'm getting a policy summary. That's not enough."],
+          P: ["This is exactly why I said there's a problem. Even this response feels slow and deflective.", "If you don't take customer feedback seriously, you're contributing to the exact problem.", "I'm going to raise this more formally if this is the level of response I get."]
+        }
+      },
+      latifa: {
+        open: "My previous boss made a lot of promises that were never met. I need to know this will be different.",
+        promises: {
+          S: ["That's reassuring. I just need honesty more than I need perfect results. And I need to see it in action, not just words.", "Thank you. I can accept 'I don't know' much more than a false promise. That's actually what I was hoping to hear.", "Okay. That's the most honest answer anyone has given me. I'll hold you to that level of honesty."],
+          A: ["Okay. I'll try to trust that. But please don't make promises you can't keep.", "I'll give this a chance. Just don't disappoint me the way others have.", "Fine. I'll watch and see."],
+          W: ["Everyone says that at first. What makes you actually different?", "I've heard 'I'll be different' before. I need more than that.", "You can't promise outcomes — so why are you promising them?"],
+          P: ["This is exactly what my last supervisor said in our first conversation.", "Words don't cost anything. I need to see real actions.", "You're saying all the right things but I don't feel the conviction behind them."]
+        },
+        no_fb: {
+          I: "You've been my supervisor for a while now and I haven't received proper feedback. When are you going to tell me how I'm actually doing?",
+          S: ["Finally. This is what I needed. Real, specific feedback that I can act on. Thank you.", "Specific feedback — even if it includes things I need to improve — is so much more valuable than being ignored.", "That's fair and balanced. Now I know where I stand. Can we make this a regular thing?"],
+          A: ["Okay. That's a start. I hope this is the beginning of regular feedback and not a one-time thing.", "Thank you. I feel a bit better. I just want to know I'm being seen.", "Alright. I'll work on the areas you mentioned. Can we check in again in a few weeks?"],
+          W: ["That's too vague to act on. What specifically should I improve?", "I've been waiting for this and it's still quite general.", "When was the last time you actually observed my work before giving this feedback?"],
+          P: ["I feel like I've been invisible this whole time. That's demoralizing.", "This is not feedback — it's a performance of feedback. I can tell the difference.", "If you had been paying attention, you'd be able to give me something more concrete."]
+        }
+      }
+    };
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let S = {
+      mode: 'part1',
+      active: 'latifa',
+      interactions: 0,
+      cs: {
+        latifa: { mood: 'neutral', ei: 20, trust: 50, cur: null, intro: false, used: [], responses: [], exch: 0 },
+        ahmed: { mood: 'neutral', ei: 20, trust: 50, cur: null, intro: false, used: [], responses: [], exch: 0 },
+        shamma: { mood: 'neutral', ei: 20, trust: 50, cur: null, intro: false, used: [], responses: [], exch: 0 },
+        khaled: { mood: 'neutral', ei: 20, trust: 50, cur: null, intro: false, used: [], responses: [], exch: 0 }
+      },
+      mem: { latifa: [], ahmed: [], shamma: [], khaled: [] },
+      sc: { motivation: { t: 0, c: 0 }, communication: { t: 0, c: 0 }, resistance: { t: 0, c: 0 }, coaching: { t: 0, c: 0 }, sbi: { t: 0, c: 0 }, assertiveness: { t: 0, c: 0 }, decisionMaking: { t: 0, c: 0 }, delegation: { t: 0, c: 0 }, recognition: { t: 0, c: 0 }, firmnessKindness: { t: 0, c: 0 }, businessLeadership: { t: 0, c: 0 }, listening: { t: 0, c: 0 }, operational: { t: 0, c: 0 }, personality: { t: 0, c: 0 }, pressure: { t: 0, c: 0 } },
+      promises: []
+    };
+
+    // ============================================================
+    // AI ENGINE
+    // ============================================================
+    function analyze(txt) {
+      const t = txt.toLowerCase();
+      const has = w => Array.isArray(w) ? w.some(x => t.includes(x)) : t.includes(w);
+      const a = {
+        emp: has(['understand', 'feel', 'appreciate', 'acknowledge', 'concern', 'worry', 'care', 'difficult', 'hard', 'tough', 'i hear you', 'makes sense', 'valid', 'recognize your']),
+        clar: has(['specifically', 'clearly', 'by', 'deadline', 'expect', 'step', 'first', 'procedure', 'target', 'goal', 'objective', 'measur']),
+        ass: has(['i expect', 'we need to', 'the requirement', 'this must', 'direct', 'firm', 'standard', 'accountab', 'bottom line', 'non-negotiable', 'let me be clear']),
+        sbi: (has(['situation', 'when you', 'yesterday', 'last week', 'in that meeting', 'in the report']) && has(['i noticed', 'i observed', 'you did', 'you said', 'you handled', 'you missed']) && has(['impact', 'effect', 'result', 'as a result', 'consequence', 'it affected'])),
+        deleg: has(['delegate', 'take ownership', 'take charge', 'your responsibility', 'trust you', 'count on you', 'handle this', 'manage this yourself', 'i leave it to you']),
+        coach: has(['how do you feel', 'what do you think', 'what would you do', 'help me understand', 'walk me through', 'tell me more', 'what are your thoughts', 'grow', 'develop']),
+        micro: has(['approve every', 'check with me before', 'every step', 'constant update', 'report every', 'supervise closely']),
+        avoid: has(["let's see", "figure it out", "don't worry", "not sure yet", 'talk later', "i'll think about", 'maybe', 'not the right time', 'some other time']),
+        blame: has(['management decision', 'not my fault', 'out of my hands', 'above my pay grade', 'policy says', 'not my area', 'others are also']),
+        listen: has(["so what you're saying", "if i understand correctly", "let me summarize", "you mentioned", "i heard you say", "what i'm hearing is", "to summarize", "in other words"]),
+        vals: has(["what's important to you", 'what drives you', 'your goals', 'what motivates', 'career', 'aspiration', 'purpose', 'meaning', 'values']),
+        map: has(['mastery', 'autonomy', 'purpose', 'ownership', 'skill', 'independent', 'self-manage', 'contribute', 'meaningful', 'mission', 'why we do', 'bigger picture']),
+        dec: has(['decision is', "i've decided", 'going forward we will', 'the plan is', 'my decision', 'i have decided', 'determined', 'resolved']),
+        recog: has(['well done', 'great job', 'i want to acknowledge', 'excellent', 'proud of', 'impressive', 'appreciate your work', 'commend', 'recognize your', 'strong performance']),
+        priv: has(['private', 'privately', 'between us', 'one-on-one', 'in private']),
+        pub: (t.includes('team') && has(['acknowledge', 'recognize', 'announce', 'share with'])),
+        emp2: has(['empower', 'trust your judgment', 'your call', 'own this', 'full authority', 'up to you', 'you decide', 'take the lead']),
+        oper: has(['deadline', 'target', 'kpi', 'performance', 'on track', 'audit', 'compliance', 'procedure', 'standard', 'quality', 'accuracy']),
+        escal: has(['area manager', 'hr', 'escalate to', 'senior management', 'go above', 'bring in management'])
+      };
+      let pos = [a.emp, a.clar, a.ass, a.coach, a.listen].filter(Boolean).length;
+      let neg = [a.avoid, a.blame, a.micro].filter(Boolean).length;
+      let q = 'adequate';
+      if (pos >= 3 && neg === 0) q = 'S';
+      else if (pos >= 2 && neg <= 1) q = 'A';
+      else if (pos === 1 && neg >= 1) q = 'W';
+      else if (pos === 0 || neg >= 2) q = 'P';
+      if (txt.trim().length < 30) q = 'W';
+      if (txt.trim().length < 15) q = 'P';
+      return { ...a, q };
+    }
+
+    function addScore(k, v) { if (!S.sc[k]) S.sc[k] = { t: 0, c: 0 }; S.sc[k].t += v; S.sc[k].c++ }
+
+    function scoreIt(a, cid) {
+      const exp = ['shamma', 'khaled'].includes(cid);
+      const isNew = cid === 'latifa';
+      const p2 = S.mode === 'part2';
+      const qmap = { S: 4.5, A: 3.5, W: 2, P: 1 };
+      const base = qmap[a.q] || 3;
+      if (a.map || a.vals) addScore('motivation', a.map && a.vals ? 5 : 4); else if (a.q === 'P') addScore('motivation', 1.5);
+      addScore('communication', base + (a.clar ? .5 : 0));
+      const st = S.cs[cid];
+      if (st.ei > 50) { if (a.q === 'S' && a.emp) addScore('resistance', 4.5); else if (a.q === 'A') addScore('resistance', 3); else if (a.q === 'P') addScore('resistance', 1); }
+      // coaching alignment
+      let cs = 2.5;
+      if (isNew) { if (a.clar && a.coach) cs = 5; else if (a.clar || a.coach) cs = 3.5; else if (a.emp2) cs = 1.5; }
+      else if (cid === 'ahmed') { if (a.coach && a.map) cs = 5; else if (a.coach || a.map) cs = 3.5; else if (a.micro) cs = 1.5; }
+      else if (cid === 'shamma') { if (a.emp2 && !a.micro) cs = 5; else if (a.micro) cs = 1; else if (a.listen) cs = 3.5; }
+      else if (cid === 'khaled') { if (a.emp2 && a.listen) cs = 5; else if (a.micro) cs = 1; else if (a.deleg) cs = 4; }
+      addScore('coaching', cs);
+      if (a.sbi) addScore('sbi', 5); else if (a.recog || a.q === 'S') addScore('sbi', 3); else if (a.q === 'P') addScore('sbi', 1.5);
+      if (a.ass && !a.avoid) addScore('assertiveness', 4 + (a.q === 'S' ? 1 : 0)); else if (a.avoid) addScore('assertiveness', 1.5); else addScore('assertiveness', base);
+      if (a.dec) addScore('decisionMaking', 4.5); else if (a.avoid) addScore('decisionMaking', 1.5);
+      if (a.deleg || a.emp2) { addScore('delegation', exp ? 5 : 2); }
+      if (a.micro && exp) addScore('delegation', 1);
+      if (a.priv) addScore('recognition', 5);
+      if (a.pub) addScore('recognition', 5);
+      if (a.recog && !a.priv) addScore('recognition', 3);
+      if (a.ass && a.emp) addScore('firmnessKindness', 5); else if (a.ass || a.emp) addScore('firmnessKindness', 3.5); else addScore('firmnessKindness', 2);
+      if (a.oper && a.emp) addScore('businessLeadership', 5); else if (a.oper || a.emp) addScore('businessLeadership', 3.5); else addScore('businessLeadership', 2);
+      if (a.listen) addScore('listening', 5); else if (a.emp) addScore('listening', 3.5); else addScore('listening', base - .5);
+      if (a.oper && a.clar) addScore('operational', 4.5); else if (a.oper || a.clar) addScore('operational', 3.5); else addScore('operational', 2);
+      if (a.vals && a.coach) addScore('personality', 5); else if (a.vals || a.coach) addScore('personality', 3.5); else addScore('personality', 2);
+      if (p2) { if (a.q === 'S' && a.ass && a.emp) addScore('pressure', 5); else if (a.q === 'A') addScore('pressure', 3); else if (a.q === 'W') addScore('pressure', 2); else addScore('pressure', 1); }
+    }
+
+    function finalScores() {
+      const f = {};
+      for (const [k, v] of Object.entries(S.sc)) {
+        f[k] = v.c === 0 ? 2 : Math.max(1, Math.min(5, Math.round(v.t / v.c)));
+      }
+      return f;
+    }
+
+    // ============================================================
+    // RESPONSE GENERATION
+    // ============================================================
+    function nextScenario(cid) {
+      const p2 = S.mode === 'part2';
+      const scens = p2 ? CHARS[cid].p2s : CHARS[cid].p1s;
+      const st = S.cs[cid];
+      if (!Array.isArray(st.used)) st.used = [];
+      const next = scens.find(sc => !st.used.includes(sc));
+      if (!next) return null;
+      st.used.push(next);
+      return next;
+    }
+
+    function pickUniqueResponse(pool, cid) {
+      const st = S.cs[cid];
+      if (!Array.isArray(st.responses)) st.responses = [];
+      const fresh = pool.filter(r => !st.responses.includes(r));
+      const choices = fresh.length ? fresh : pool;
+      const resp = choices[Math.floor(Math.random() * choices.length)];
+      if (fresh.length) st.responses.push(resp);
+      return resp;
+    }
+
+    function genResp(cid, txt, a) {
+      const p2 = S.mode === 'part2';
+      const pool = p2 ? R2 : R;
+      const st = S.cs[cid];
+      const q = a.q;
+
+      // Update emotional state
+      const ic = { S: -15, A: -5, W: 10, P: 20 }[q] || 0;
+      const tc = { S: 10, A: 3, W: -5, P: -15 }[q] || 0;
+      st.ei = Math.max(10, Math.min(100, st.ei + ic));
+      st.trust = Math.max(0, Math.min(100, st.trust + tc));
+      if (a.blame || a.escal) st.ei = Math.min(100, st.ei + 10);
+      if (a.emp && a.listen) st.ei = Math.max(10, st.ei - 10);
+      if (st.ei > 75 || st.trust < 20) st.mood = 'frustrated';
+      else if (st.ei > 50 || st.trust < 40) st.mood = 'concerned';
+      else if (st.trust > 70) st.mood = 'positive';
+      else st.mood = 'neutral';
+
+      st.exch++;
+
+      // Keep the employee focused on the current topic. Do not randomly jump to a
+      // completely different issue after a fixed number of turns. A new scenario
+      // is introduced only after the current scenario has had enough exchanges,
+      // and scenarios are presented in a stable order rather than randomly.
+      if (!st.cur) {
+        st.cur = nextScenario(cid);
+        st.intro = false;
+        st.exch = 1;
+      } else if (st.exch > 6) {
+        const next = nextScenario(cid);
+        if (next) {
+          st.cur = next;
+          st.intro = false;
+          st.exch = 1;
+        }
+      }
+
+      const charPool = pool[cid];
+      if (!charPool) return fallback(cid, q, p2);
+      const scPool = charPool[st.cur];
+      if (!scPool) return fallback(cid, q, p2);
+
+      if (scPool.I && !st.intro) {
+        st.intro = true;
+        return scPool.I;
+      }
+
+      const qPool = scPool[q] || scPool['A'] || [];
+      if (!qPool.length) return fallback(cid, q, p2);
+      let resp = pickUniqueResponse(qPool, cid);
+
+      // Only reference a promise once, and never inject a random new question.
+      // This keeps the conversation anchored to what the supervisor actually said.
+      const promises = S.promises.filter(p => p.cid === cid && !p.done && !p.challenged);
+      if (promises.length > 0 && st.exch > 3) {
+        resp += ` Also, I want to follow up on your earlier commitment: ${promises[0].summary}.`;
+        promises[0].challenged = true;
+      }
+      return resp;
+    }
+
+    function fallback(cid, q, p2) {
+      const fb = {
+        S: { latifa: "Thank you, that's really helpful. What should I focus on next?", ahmed: "I appreciate the clarity. That kind of direction actually motivates me.", shamma: "Alright. I appreciate you taking this seriously. That's the conversation I needed.", khaled: "Good. We're aligned. I'll proceed and keep you informed on the key outcomes." },
+        A: { latifa: "Okay, I'll try to apply that. Could you check in on me later?", ahmed: "Alright. I'll give it a go. I still have some questions but I'll figure it out.", shamma: "Fine. I hear you. Let's revisit this conversation soon.", khaled: "Understood. I'll proceed accordingly. Let me know if anything changes." },
+        W: { latifa: "I'm not completely sure what I should do from here. Can you be more specific?", ahmed: "I feel like I didn't quite get what I was looking for. Could we dig deeper?", shamma: "That doesn't fully address what I raised. The core issue is still unresolved.", khaled: "I expected a clearer position from you. I'll proceed with my own judgment." },
+        P: { latifa: "I'm sorry, but that response didn't help me at all. I need real guidance.", ahmed: "With respect, that's not the kind of supervisory response that motivates me.", shamma: "This isn't the conversation I was hoping for. I feel unheard.", khaled: p2 ? "I want to speak with the area manager. This conversation is not productive." : "I think we need to revisit this at a better time. This isn't working." }
+      };
+      return (fb[q] && fb[q][cid]) || "I understand. Let me think about that.";
+    }
+
+    function tdel(txt) { return Math.min(CFG.tdMax, CFG.tdMin + txt.split(' ').length * 35) + Math.random() * 300 }
+
+    // ============================================================
+    // UI HELPERS
+    // ============================================================
+    const $ = id => document.getElementById(id);
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') }
+
+    function renderRoster() {
+      const el = $('roster'); el.innerHTML = '';
+      const order = S.mode === 'part1' ? P1_ORDER : P2_ORDER;
+      order.forEach(cid => {
+        const c = CHARS[cid], st = S.cs[cid], isA = S.active === cid;
+        const moodClass = { neutral: 'mn', positive: 'mp', concerned: 'mc2', frustrated: 'mf' }[st.mood] || 'mn';
+        const d = document.createElement('div');
+        d.className = `ec${isA ? ' active' : ''}`; d.dataset.cid = cid;
+        d.innerHTML = `<div class="ea ${c.cls}${isA ? ' alive' : ''}" style="background:${c.grad}">${c.init}<div class="esd"></div></div><div class="ei"><div class="en">${c.name}</div><div class="er2">${c.role}</div></div><div class="mi2 ${moodClass}"></div>`;
+        d.addEventListener('click', () => switchChar(cid));
+        el.appendChild(d);
+      });
+    }
+
+    function renderProfile() {
+      const cid = S.active, c = CHARS[cid], st = S.cs[cid];
+      const pal = $('pal'); pal.style.background = c.grad; pal.textContent = c.init;
+      $('pname').textContent = c.name; $('prole').textContent = c.role;
+      $('pmeta').innerHTML = `<span class="chip exp">${c.exp}</span><span class="chip sty">${c.style}</span><span class="chip mat">${c.mat}</span>`;
+      const mc = { neutral: 'rgba(136,153,187,.2)', positive: 'rgba(34,197,94,.2)', concerned: 'rgba(245,158,11,.2)', frustrated: 'rgba(239,68,68,.2)' };
+      const mtc = { neutral: 'var(--ts)', positive: '#86efac', concerned: '#fde68a', frustrated: '#fca5a5' };
+      const ml = { neutral: '😐 Neutral', positive: '😊 Cooperative', concerned: '😟 Concerned', frustrated: '😤 Frustrated' };
+      const pm = $('pmood'); pm.textContent = ml[st.mood] || '😐 Neutral'; pm.style.background = mc[st.mood]; pm.style.color = mtc[st.mood];
+      const ib = $('intbar'); ib.style.width = `${st.ei}%`;
+      let ic, il;
+      if (st.ei < 30) { ic = 'var(--ok)'; il = 'Low'; } else if (st.ei < 60) { ic = 'var(--wn)'; il = 'Medium'; } else if (st.ei < 80) { ic = '#f97316'; il = 'High'; } else { ic = 'var(--er)'; il = 'Critical'; }
+      ib.style.background = ic; $('intlbl').textContent = il; $('intpct').textContent = `${st.ei}%`;
+    }
+
+    function loadChat(cid) {
+      const ca = $('chat'); const msgs = S.mem[cid];
+      ca.innerHTML = `<div class="sm">Conversation with ${CHARS[cid].name} – ${CHARS[cid].role}</div>`;
+      msgs.forEach(m => appendMsg(m.speaker, m.text, m.time, false));
+      if (msgs.length === 0) {
+        const p2 = S.mode === 'part2';
+        const op = (p2 && R2[cid]) ? R2[cid].open : R[cid]?.open;
+        if (op) {
+          setTimeout(() => {
+            showTyping();
+            setTimeout(() => {
+              hideTyping();
+              const sc = nextScenario(cid);
+              S.cs[cid].cur = sc; S.cs[cid].intro = true;
+              addMsg(cid, 'employee', op);
+            }, tdel(op));
+          }, 300);
+        }
+      }
+      setTimeout(() => ca.scrollTop = ca.scrollHeight, 100);
+    }
+
+    function appendMsg(speaker, text, time, anim) {
+      const ca = $('chat'); const cid = S.active; const c = CHARS[cid];
+      const d = document.createElement('div'); d.className = `msg ${speaker}${anim ? ' fi' : ''}`;
+      if (speaker === 'employee') {
+        d.innerHTML = `<div class="mav" style="background:${c.grad}">${c.init}</div><div><div class="mb">${esc(text)}</div><div class="mm">${c.name} · ${time}</div></div>`;
+      } else {
+        d.innerHTML = `<div class="mav sv">👔</div><div><div class="mb">${esc(text)}</div><div class="mm">You (Supervisor) · ${time}</div></div>`;
+      }
+      ca.appendChild(d); ca.scrollTop = ca.scrollHeight;
+    }
+
+    function addMsg(cid, speaker, text) {
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const msg = { cid, speaker, text, time };
+      if (cid === S.active) appendMsg(speaker, text, time, true);
+      S.mem[cid].push(msg);
+      renderRoster(); renderProfile();
+    }
+
+    function addSysMsg(txt) {
+      const d = document.createElement('div'); d.className = 'sm fi'; d.textContent = txt;
+      $('chat').appendChild(d); $('chat').scrollTop = $('chat').scrollHeight;
+    }
+
+    function showTyping() { $('typing').style.display = 'block'; $('chat').scrollTop = $('chat').scrollHeight }
+    function hideTyping() { $('typing').style.display = 'none' }
+
+    function switchChar(cid, sys = true) {
+      if (cid === S.active) return;
+      S.active = cid; renderRoster(); renderProfile(); loadChat(cid);
+      if (sys) addSysMsg(`Switched to conversation with ${CHARS[cid].name} (${CHARS[cid].role})`);
+    }
+
+    function updateProgress() {
+      const pct = Math.min(95, (S.interactions / CFG.maxI) * 100);
+      $('pbar').style.width = `${pct}%`; $('icnt').textContent = `Interactions: ${S.interactions}`;
+    }
+
+    // ============================================================
+    // SEND HANDLER
+    // ============================================================
+    function handleSend() {
+      const inp = $('inp'); const txt = inp.value.trim(); if (!txt) return;
+      inp.value = ''; inp.style.height = 'auto';
+      const tl = txt.toLowerCase();
+      if (tl.includes('end simulation')) { endSim(); return; }
+      if (tl.includes('play part 2') || tl.includes('start advanced') || tl.includes('advanced simulation')) { activateP2(); return; }
+      if (tl.match(/\bi will\b|\bi'll\b|\bi promise\b|\bi commit\b/)) {
+        S.promises.push({ cid: S.active, summary: txt.slice(0, 60), done: false, challenged: false });
+      }
+      S.interactions++; updateProgress();
+      addMsg(S.active, 'supervisor', txt);
+      const a = analyze(txt); scoreIt(a, S.active);
+      const cid = S.active;
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        const resp = genResp(cid, txt, a);
+        addMsg(cid, 'employee', resp);
+      }, tdel(txt));
+    }
+
+    // ============================================================
+    // PART 2 ACTIVATION
+    // ============================================================
+    function activateP2() {
+      S.mode = 'part2';
+      P1_ORDER.forEach(id => {
+        S.cs[id] = { mood: 'concerned', ei: 60, trust: 25, cur: null, intro: false, used: [], responses: [], exch: 0 };
+        S.mem[id] = [];
+      });
+      S.active = 'khaled';
+      $('mchip').textContent = 'Advanced Mode'; $('mchip').className = 'mc p2';
+      $('ssbadge').className = 'sb adv'; $('ssbadge').innerHTML = '<div class="sd"></div> Advanced Mode Active';
+      $('c15').style.display = 'flex';
+      addSysMsg('⚠ Advanced Mode activated. Simulation restarted with increased difficulty. Starting with Khaled.');
+      renderRoster(); loadChat('khaled'); renderProfile();
+    }
+
+    // ============================================================
+    // END SIMULATION
+    // ============================================================
+    function endSim() {
+      $('sim').style.display = 'none'; $('sim').classList.remove('active');
+      const res = $('res'); res.style.display = 'flex'; res.classList.add('active');
+      renderResults(finalScores());
+    }
+
+    // ============================================================
+    // RESULTS
+    // ============================================================
+    const CDEFS = [
+      { key: 'motivation', label: 'Supervisor Motivation skills using sense of mastery, autonomy and purpose', col: '#a855f7' },
+      { key: 'communication', label: 'Supervisor communication quality, clarity and related answers', col: '#38bdf8' },
+      { key: 'resistance', label: 'Supervisor ability to handle resistance', col: '#f97316' },
+      { key: 'coaching', label: 'Supervisor ability to match coaching with the level of task and willingness maturity of the employee', col: '#34d399' },
+      { key: 'sbi', label: 'Supervisor ability to give a proper SBI feedback very objectively as per the CCL model', col: '#c9a84c' },
+      { key: 'assertiveness', label: 'Supervisor ability & confidence to speak assertively in words used', col: '#f87171' },
+      { key: 'decisionMaking', label: 'Supervisor ability to evaluate to be decisive', col: '#818cf8' },
+      { key: 'delegation', label: 'Supervisor ability to empower and delegate at the right time and right situation', col: '#2dd4bf' },
+      { key: 'recognition', label: 'Supervisor ability to recognize publicly and punish in private', col: '#fbbf24' },
+      { key: 'firmnessKindness', label: 'Supervisor ability to show control and firmness but also kindness and humanity', col: '#86efac' },
+      { key: 'businessLeadership', label: 'Supervisor ability to run the business as manager and lead the people and influence them as leader', col: '#93c5fd' },
+      { key: 'listening', label: 'Supervisor ability to listen to facts and emotions and values and summarize', col: '#f9a8d4' },
+      { key: 'operational', label: 'Supervisor ability to run a tight ship operation', col: '#6ee7b7' },
+      { key: 'personality', label: 'Supervisor ability to understand personalities and elicit values', col: '#fda4af' }
+    ];
+    const CDEF_P2 = { key: 'pressure', label: 'Leading the conversation with leadership influence under pressure & with confidence', col: '#ef4444' };
+
+    const ANALYSES = {
+      motivation: { 1: { s: "Attempted to engage.", g: "No reference to mastery, autonomy or purpose.", i: 'Ask: "What does growth look like for you?" or "Why does this work matter to you?"' }, 2: { s: "Occasionally acknowledged employee needs.", g: "Motivation language was sparse and reactive.", i: 'Integrate MAP language: "I want you to take ownership of this" or "Here is why this matters for the team."' }, 3: { s: "Some awareness of what drives the employee.", g: "Inconsistent application of motivational approach.", i: "Tailor each conversation: for Khaled use autonomy, for Latifa use mastery, for Ahmed use purpose." }, 4: { s: "Good use of motivational language in key moments.", g: "Could be more systematic across all employees.", i: "Open each interaction with a motivational hook relevant to that employee's values." }, 5: { s: "Excellent integration of mastery, autonomy and purpose across conversations.", g: "Minor refinements possible in tailoring to each individual.", i: "Continue using MAP framework. Deepen by exploring specific career goals." } },
+      communication: { 1: { s: "Messages were received.", g: "Responses were vague, unclear, or too brief to be actionable.", i: 'Use the SBI + Action model: "When X happened, I noticed Y, which caused Z. Going forward, I need you to do A by B date."' }, 2: { s: "Basic intent communicated.", g: "Lack of specificity made it hard for employees to act on your direction.", i: "Add clear timelines, expectations, and success criteria to every key message." }, 3: { s: "Communication was generally clear and professional.", g: "Some responses lacked banking-grade precision.", i: "Practice the PREP model: Point, Reason, Example, Point. Use it for any key instruction." }, 4: { s: "Strong, clear communication in most interactions.", g: "Occasional gaps in adapting style to individuals.", i: "Adjust tone: more directive with Latifa, more collaborative with Ahmed, more autonomous with Khaled." }, 5: { s: "Excellent communication quality throughout. Messages were clear, empathetic and actionable.", g: "No significant gaps observed.", i: "Maintain this standard and document key communications for coaching reference." } },
+      resistance: { 1: { s: "Attempted to engage.", g: "When employees pushed back, responses were defensive, avoidant, or escalatory.", i: 'When resistance appears, say: "I hear your concern. Help me understand what specifically is driving this." Stay calm.' }, 2: { s: "Showed some composure under pressure.", g: "Resistance handling was inconsistent — backing down or escalating at wrong moments.", i: 'Apply SOLER model when resistance occurs: face them squarely, open posture, relax.' }, 3: { s: "Managed most resistance situations adequately.", g: "Some scenarios escalated unnecessarily or were resolved too easily.", i: 'For emotional resistance: acknowledge first, then address. "I understand this frustrates you. Let me tell you what I can do."' }, 4: { s: "Effective resistance management in most conversations.", g: "Advanced mode scenarios exposed some gaps in holding the line.", i: 'In extreme resistance, maintain position calmly: "I understand you feel strongly. My position remains. Here\'s why."' }, 5: { s: "Exceptional resistance management. Remained calm, empathetic and assertive simultaneously.", g: "No significant gaps.", i: "Continue developing this skill. Consider coaching others on resistance management techniques." } },
+      coaching: { 1: { s: "Interacted with employees.", g: "Coaching style was not adapted to employee maturity. Over-directed experienced staff and under-directed new staff.", i: "Use Situational Leadership: S1 (Direct) for Latifa, S2 (Coach) for Ahmed, S3 (Support) for Shamma, S4 (Delegate) for Khaled." }, 2: { s: "Some awareness of different employee needs.", g: "Style mismatches common — particularly over-delegating to Latifa or micromanaging Khaled.", i: 'Before each interaction ask: "What is this person\'s task maturity and willingness level right now?"' }, 3: { s: "Reasonable coaching style adaptation.", g: "Occasional mismatches in coaching intensity.", i: 'Practice explicitly naming your coaching style before applying it: "I need to coach Ahmed on this — that means questions, not answers."' }, 4: { s: "Good situational leadership awareness across most employees.", g: "Challenging scenarios exposed some style rigidity.", i: "Read behavioral cues — when Khaled shows confidence, pull back; when Latifa shows uncertainty, move closer." }, 5: { s: "Excellent coaching style alignment across all employees.", g: "No significant gaps.", i: "Document your approach as a coaching framework to share with peers." } },
+      sbi: { 1: { s: "Attempted to give feedback.", g: "Feedback was not structured — no clear Situation, Behavior, or Impact observed.", i: 'Practice: "In [situation], I observed [specific behavior]. The impact was [measurable effect on team/customer/operations]."' }, 2: { s: "Some recognition and feedback given.", g: "Missing one or more SBI elements consistently.", i: "Write out feedback using S-B-I before saying it. Don't improvise critical feedback." }, 3: { s: "Adequate use of structured feedback in some interactions.", g: "Impact statements were weak or absent in several cases.", i: "The I in SBI is the most important for behavior change. Always link behavior to business impact." }, 4: { s: "Good use of SBI in feedback moments.", g: "Could be more consistent across all interactions.", i: 'Apply SBI even in recognition: "In this week\'s audit, your accuracy rate was 100% — that directly reduced rework."' }, 5: { s: "Excellent, consistent use of structured SBI feedback.", g: "No significant gaps.", i: "Model this approach for your team — SBI-based feedback cultures perform demonstrably better." } },
+      assertiveness: { 1: { s: "Participated in the conversation.", g: "Responses were passive, vague, or deflecting throughout.", i: 'Use "I" statements: "My expectation is..." "What I need from you is..." "The standard we work to is..."' }, 2: { s: "Occasionally direct.", g: "Assertion gave way to appeasement under pressure.", i: 'When pressed, hold your position: "I understand you disagree. My position remains [X]. Here\'s the reason: [Y]."' }, 3: { s: "Reasonably assertive in most situations.", g: "Assertiveness faltered in high-pressure or emotionally charged moments.", i: "Practice the broken record technique for critical positions: state your position calmly and repeat if challenged." }, 4: { s: "Strong assertive communication in most interactions.", g: "Minor softening of position in some emotional situations.", i: 'Assertiveness and empathy are not opposites. Practice combining them: "I hear you, and my expectation is still [X]."' }, 5: { s: "Excellent assertive communication throughout.", g: "No significant gaps.", i: "Continue modeling assertive communication — it builds team confidence in leadership." } },
+      decisionMaking: { 1: { s: "Engaged with issues raised.", g: "Decisions were consistently avoided, deferred, or unclear.", i: 'Decide in the moment: "Based on what you\'ve told me, here is my decision: [X]. This will be reviewed in [timeframe]."' }, 2: { s: "Some decisions were made.", g: "Decisiveness was inconsistent — some issues left unresolved or ambiguous.", i: "Use the OODA loop: Observe, Orient, Decide, Act. Don't over-analyze; make a decision and adapt." }, 3: { s: "Reasonable decision-making in most situations.", g: "Some deferral or ambiguity in complex scenarios.", i: 'When you can\'t make a full decision, make a partial one: "I\'ll commit to [X] by [date]."' }, 4: { s: "Clear and timely decision-making.", g: "Occasional hesitation on high-stakes decisions.", i: 'Build decisiveness: "What information do I need to decide? I have it. Decision made."' }, 5: { s: "Excellent decisiveness and clarity throughout the simulation.", g: "No significant gaps.", i: "Continue building decision-making speed and confidence. Share your framework with your team." } },
+      delegation: { 1: { s: "Attempted task assignment.", g: "Delegation was poorly timed — delegating to under-prepared staff or micromanaging experienced staff.", i: "Match delegation to readiness: Latifa needs structure, Khaled needs autonomy. Never delegate beyond capability without support." }, 2: { s: "Some appropriate delegation observed.", g: "Over-delegation to new staff or under-delegation to experienced staff.", i: 'Ask: "Is this person capable and willing? If capable, delegate freely. If willing but not capable, coach them through it."' }, 3: { s: "Reasonable delegation approach.", g: "Timing of delegation could be better calibrated.", i: 'Set up delegation conversations: "I\'m giving you this responsibility because I believe you\'re ready. Here are the expectations."' }, 4: { s: "Good delegation judgment across most employees.", g: "Fine-tuning needed for some advanced scenarios.", i: 'Make delegation explicit: "This is yours. I trust your judgment. Come to me only if something extraordinary happens."' }, 5: { s: "Excellent delegation and empowerment across appropriate scenarios.", g: "No significant gaps.", i: "Document your delegation framework as a leadership coaching tool." } },
+      recognition: { 1: { s: "Engaged with employees.", g: "No clear distinction between public recognition and private correction.", i: "Rule: Recognize publicly, correct privately. Always acknowledge good work in team contexts; never correct errors in front of peers." }, 2: { s: "Some recognition attempts.", g: "Corrective feedback was not consistently private.", i: 'Before correcting anyone, ask: "Am I alone with this person?" If not, defer until you are.' }, 3: { s: "Decent awareness of recognition principles.", g: "Some inconsistency in applying private correction.", i: 'Formalize recognition: "I want to acknowledge [name]\'s work on [task] to the whole team."' }, 4: { s: "Good application of recognition principles.", g: "Could be more proactive about recognition rather than reactive.", i: "Make weekly recognition a habit — even a brief acknowledgment goes a long way." }, 5: { s: "Excellent application of public recognition and private correction principles.", g: "No significant gaps.", i: "Model this for your team. Recognition cultures produce engagement." } },
+      firmnessKindness: { 1: { s: "Attempted interaction.", g: "Responses were either too soft (no firmness) or too hard (no humanity).", i: 'Practice the balance: "I understand this is hard for you. And this standard is non-negotiable. Let me help you meet it."' }, 2: { s: "Some warmth in interactions.", g: "Firmness frequently gave way to appeasement, or empathy was absent under pressure.", i: 'Humanize the boundary: "I hear how frustrated you are. I\'m not changing this, but I\'m going to help you navigate it."' }, 3: { s: "Reasonable balance of warmth and firmness in many interactions.", g: "Inconsistency under pressure.", i: "Think of firmness and kindness as a professional blend, not a toggle switch. Both should always be present." }, 4: { s: "Good balance of firmness with humanity across the simulation.", g: "High-pressure scenarios occasionally pushed you toward one extreme.", i: "Use the HEART model: Hear the emotion, Empathize, Acknowledge, Respond firmly, Thank them for raising it." }, 5: { s: "Excellent balance of control, firmness, kindness and humanity throughout.", g: "No significant gaps.", i: "This is a rare leadership quality. Coach others on how you achieve this balance." } },
+      businessLeadership: { 1: { s: "Present in the simulation.", g: "No evidence of managing both people and business simultaneously.", i: 'Ask yourself in each conversation: "What does this person need (people) AND what does the business need (task)?" Address both.' }, 2: { s: "Some operational awareness.", g: "Conversations were either purely relational or purely operational.", i: 'Integrate: "I care about how you\'re feeling. I also need us to hit the quarterly target. Let\'s figure out how to do both."' }, 3: { s: "Reasonable integration of people and business thinking.", g: "Could be more explicit linking conversations to business outcomes.", i: 'End each conversation with a bridge: "How does what we just discussed connect to our operational goals this quarter?"' }, 4: { s: "Strong integration of people leadership and business management.", g: "More consistency needed across all four employees.", i: "Develop a leadership formula: People first, then performance. Or: Set the standard, then support the person." }, 5: { s: "Exceptional integration of business management and people leadership.", g: "No significant gaps.", i: "This is the hallmark of a great banking leader. Document your approach." } },
+      listening: { 1: { s: "Responded to employees.", g: "No evidence of reflective listening, summarizing, or exploring emotions and values.", i: 'Practice: "So what I\'m hearing is [X]. Does that capture it?" and "How is that making you feel?" before jumping to solutions.' }, 2: { s: "Some basic listening.", g: "Responses jumped to solutions before fully hearing the employee.", i: "Use the 3-level listening model: Level 1 (facts), Level 2 (emotions), Level 3 (values). Respond to all three." }, 3: { s: "Adequate listening in most conversations.", g: "Emotions and values often went unacknowledged.", i: 'When an employee raises a concern, respond to the emotion first: "I can hear this has been weighing on you. Tell me more."' }, 4: { s: "Good listening skills demonstrated.", g: "Values exploration was occasionally superficial.", i: 'Explore values explicitly: "What matters most to you in your work?" This builds psychological safety.' }, 5: { s: "Excellent listening across all three levels — facts, emotions and values.", g: "No significant gaps.", i: "Listening at this level is rare in banking leadership. Share this as a practice model." } },
+      operational: { 1: { s: "Participated.", g: "No operational control language, no standards, deadlines, or accountability discussed.", i: 'Bring operational language into every conversation: "What is the standard we\'re working to?" "When is this due?" "How will we measure quality?"' }, 2: { s: "Some operational awareness.", g: "Standards and accountability were vague or absent in most conversations.", i: 'Apply operational framing: "The KPI for this role is [X]. As of today, you\'re at [Y]. Here\'s the plan to close the gap."' }, 3: { s: "Reasonable operational focus in conversations.", g: "Inconsistent linking of conversations to operational outcomes.", i: "Develop a 'tight ship' mindset: every people conversation must have an operational anchor." }, 4: { s: "Good operational control language integrated with people management.", g: "Could apply more structure in emotionally charged conversations.", i: 'Don\'t abandon standards when emotions run high: "I hear you, and the deadline stands. Let\'s plan for it together."' }, 5: { s: "Excellent integration of operational standards and accountability.", g: "No significant gaps.", i: "Your operational rigor is a model for the team. Formalize it in shared standards documents." } },
+      personality: { 1: { s: "Interacted with all employees.", g: "No adaptation to personality styles or exploration of individual values.", i: "Study the four communication styles: Driver (Khaled), Analytical (also Khaled), Expressive (Ahmed/Shamma), Amiable (Latifa). Adapt accordingly." }, 2: { s: "Some awareness of individual differences.", g: "Responses were largely one-size-fits-all.", i: 'Ask values questions: "What does success mean for you here?" and adapt your style to the answer.' }, 3: { s: "Reasonable adaptation to different personalities.", g: "Inconsistent exploration of values across employees.", i: "For each employee, identify: their style, their values, and what motivates them. Let this guide your approach." }, 4: { s: "Good adaptation to different personality styles.", g: "Values exploration could be deeper and more consistent.", i: "Develop a 'values map' for each employee: revisit it in each conversation and track how their values influence behavior." }, 5: { s: "Excellent personality awareness and values exploration across all employees.", g: "No significant gaps.", i: "This capability sets great leaders apart. Train others in values-based leadership." } },
+      pressure: { 1: { s: "Attempted to lead in advanced scenarios.", g: "Leadership presence collapsed under pressure — either too passive or too reactive.", i: 'In high-pressure conversations: breathe, pause, then respond. Never react. "Let me take a moment to think about the best way to address this."' }, 2: { s: "Some composure maintained.", g: "Pressure consistently eroded leadership quality.", i: 'Practice cognitive reframing: "This resistance is an opportunity to demonstrate leadership, not a threat to me."' }, 3: { s: "Reasonable leadership under pressure in most scenarios.", g: "High-intensity moments revealed some inconsistency.", i: 'Develop a pressure anchor phrase: "I lead from values, not from emotion." Return to it when things escalate.' }, 4: { s: "Strong leadership presence under pressure.", g: "Extreme cynicism scenarios challenged your composure.", i: 'Advanced resistance requires advanced patience: "I hear you\'re in a difficult place. I\'m not going anywhere. Let\'s work through this."' }, 5: { s: "Exceptional leadership confidence and influence under extreme pressure.", g: "No significant gaps.", i: "This is executive-level competence. Coach others on leading through resistance." } }
+    };
+
+    function getAnalysis(key, score) {
+      const a = ANALYSES[key]; if (!a) return { s: 'Assessed.', g: 'See overall feedback.', i: 'Continue development.' };
+      const s = Math.max(1, Math.min(5, score)); return a[s] || a[3];
+    }
+
+    function renderResults(scores) {
+      const p2 = S.mode === 'part2';
+      const defs = p2 ? [...CDEFS, CDEF_P2] : CDEFS;
+      let tot = 0, cnt = 0;
+      defs.forEach(d => { tot += scores[d.key] || 2; cnt++; });
+      const avg = cnt > 0 ? tot / cnt : 2.5;
+      const ov = Math.round(avg * 10) / 10;
+      let tier, tc, tb;
+      if (ov >= 4.5) { tier = 'Exceptional Leader'; tc = '#c9a84c'; tb = 'rgba(201,168,76,.2)'; }
+      else if (ov >= 3.5) { tier = 'Proficient Supervisor'; tc = '#34d399'; tb = 'rgba(52,211,153,.2)'; }
+      else if (ov >= 2.5) { tier = 'Developing Leader'; tc = '#38bdf8'; tb = 'rgba(56,189,248,.2)'; }
+      else { tier = 'Needs Development'; tc = '#f87171'; tb = 'rgba(248,113,113,.2)'; }
+      const pct = ((ov / 5) * 100).toFixed(0);
+      const rLabels = defs.map(d => d.label.split(' ').slice(3, 7).join(' '));
+      const rData = defs.map(d => scores[d.key] || 2);
+      $('resb').innerHTML = `
+    <div class="rtop">
+      <div class="osc">
+        <div class="badge" style="margin-bottom:16px">📊 Overall Assessment</div>
+        <div class="scir" style="background:conic-gradient(var(--gd) ${pct * 3.6}deg,rgba(201,168,76,.15) 0deg)">
+          <div class="scin"><div class="sn">${ov.toFixed(1)}</div><div class="sd2">out of 5</div></div>
+        </div>
+        <div class="ol">Overall Leadership Score</div>
+        <div class="pt" style="color:${tc};background:${tb};border:1px solid ${tc}40">${tier}</div>
+        <div style="margin-top:16px;font-size:12px;color:var(--ts)">
+          Mode: <strong style="color:var(--tp)">${p2 ? 'Advanced Mode (Part 2)' : 'Standard Mode (Part 1)'}</strong><br>
+          Interactions: <strong style="color:var(--tp)">${S.interactions}</strong>
+        </div>
+      </div>
+      <div class="rc">
+        <div class="ctt">📈 Competency Radar</div>
+        <canvas id="rchart" style="max-height:280px"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="ctt" style="font-size:16px;margin-bottom:4px">📋 Competency Score Breakdown</div>
+      <div style="font-size:12px;color:var(--ts);margin-bottom:16px">Scores based strictly on demonstrated behaviors (1–5 scale)</div>
+      <div class="csg" id="cgrid"></div>
+    </div>`;
+      const grid = $('cgrid');
+      defs.forEach((def, i) => {
+        const sc = scores[def.key] || 2; const an = getAnalysis(def.key, sc); const pct2 = (sc / 5) * 100;
+        let sco; if (sc >= 4) sco = '#34d399'; else if (sc >= 3) sco = '#fbbf24'; else if (sc >= 2) sco = '#f97316'; else sco = '#ef4444';
+        const card = document.createElement('div'); card.className = 'csc fi'; card.style.animationDelay = `${i * .04}s`;
+        card.innerHTML = `
+      <div class="csh"><div class="csn">${def.label}</div><div class="csb" style="color:${sco}">${sc}/5</div></div>
+      <div class="csbg"><div class="csf" style="width:${pct2}%;background:${sco}"></div></div>
+      <div class="cd">
+        <div class="cds"><div class="cdl">✅ Strengths</div><div class="cst">${an.s}</div></div>
+        <div class="cds"><div class="cdl">⚠ Gaps</div><div class="cga">${an.g}</div></div>
+        <div class="cds"><div class="cdl">💡 Practical Improvement</div><div class="cim">${an.i}</div></div>
+      </div>`;
+        grid.appendChild(card);
+      });
+      setTimeout(() => {
+        new Chart(document.getElementById('rchart').getContext('2d'), {
+          type: 'radar',
+          data: { labels: rLabels, datasets: [{ label: 'Your Score', data: rData, backgroundColor: 'rgba(201,168,76,.15)', borderColor: 'rgba(201,168,76,.8)', pointBackgroundColor: 'rgba(201,168,76,1)', borderWidth: 2, pointRadius: 4 }] },
+          options: { responsive: true, maintainAspectRatio: true, scales: { r: { min: 0, max: 5, ticks: { stepSize: 1, color: 'rgba(136,153,187,.8)', font: { size: 10 }, backdropColor: 'transparent' }, grid: { color: 'rgba(255,255,255,.08)' }, angleLines: { color: 'rgba(255,255,255,.06)' }, pointLabels: { color: 'rgba(200,210,230,.8)', font: { size: 9 } } } }, plugins: { legend: { display: false } } }
+        });
+      }, 150);
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    function initAccess() {
+      initSim();
+    }
+
+    function initSim() {
+      const sim = $('sim'); sim.style.display = 'flex'; sim.classList.add('active');
+      renderRoster(); loadChat('latifa'); renderProfile();
+      $('sndbtn').addEventListener('click', handleSend);
+      $('inp').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+      $('inp').addEventListener('input', function () { this.style.height = 'auto'; this.style.height = Math.min(120, this.scrollHeight) + 'px'; });
+      $('esb').addEventListener('click', () => { if (confirm('End simulation and generate your assessment report?')) endSim(); });
+      $('nsbtn').addEventListener('click', () => location.reload());
+    }
+    document.addEventListener("DOMContentLoaded", initAccess);
+  </script>
+</body>
+
+</html>
